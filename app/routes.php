@@ -58,6 +58,7 @@ Route::group(array('before' => 'auth.user'), function()
 	Route::get('/', 'HomeController@action_index');	
 	Route::post('uploadicon', 'UsersController@action_upload_icon');
 	Route::get('edit', 'UsersController@action_edit');
+	Route::post('edit', 'UsersController@action_save');
 });
 
 

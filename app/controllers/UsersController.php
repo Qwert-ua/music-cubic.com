@@ -23,6 +23,13 @@ class UsersController extends Controller {
 		return View::make('site.edit', $data);
 	}
 	
+	public function action_save()
+	{
+		$data = Input::all();
+		
+		dd($data);
+	}
+	
 	// =========================== Admin =========================== //
 	
 	public function action_admin_index($role = 1)
