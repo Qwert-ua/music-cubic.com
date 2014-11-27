@@ -3,7 +3,7 @@
 @section('content')
 
 	<div class="row row-fluid col-md">
-			
+			1111
 		<div class="col-md-3">
 			<blockquote>
 				@if(!empty($user->firstname) && !empty($user->lastname))
