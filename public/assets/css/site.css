@@ -80,3 +80,22 @@
 .btn-user-iconimages, .btn-user-iconimages:hover {
 	color: white;
 }
+
+.active.bg-warning > a {
+    background: none repeat scroll 0 0 #fc6042 !important;
+}
+
+.user-icon-panel{display: none;
+
+    -moz-transition: top 1s ease-out 1.5s;
+    -o-transition: top 1s ease-out 1.5s;
+    transition: top 1s ease-out 1.5s;
+-webkit-transition: all 0.5s ease;
+    -webkit-transition-delay: 0.5s;
+}
+
+.avatar:hover > .user-icon-panel{
+	display: block !important; 
+
+
+}
