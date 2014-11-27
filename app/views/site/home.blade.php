@@ -18,7 +18,7 @@
 			<div class="user-icon-panel text-center ">
 				
 				<div class="btn-group">
-					<a href="#" class="btn btn-sm btn-link btn-user-iconimages"><i class="fa fa-pencil-square-o"></i> Редактировать</a>	
+					<a href="edit" class="btn btn-sm btn-link btn-user-iconimages"><i class="fa fa-pencil-square-o"></i> Редактировать</a>	
 					<button type="button" class="btn btn-sm btn-link btn-user-iconimages" data-toggle="modal" data-target="#UploadUserIcon"><i class="fa fa-download"></i> Загрузить новую</button>
 				</div>
 				

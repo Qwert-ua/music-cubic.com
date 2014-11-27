@@ -14,6 +14,15 @@ class UsersController extends Controller {
 		return Redirect::to(URL::previous());
 	}
 	
+	public function action_edit()
+	{
+		$data = array(
+			'user' => Auth::user()
+		);
+		
+		return View::make('site.edit', $data);
+	}
+	
 	// =========================== Admin =========================== //
 	
 	public function action_admin_index($role = 1)
