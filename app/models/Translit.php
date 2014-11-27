@@ -12,9 +12,9 @@ class Translit {
 	    return strtr($str,array_flip( self::listLetters()));
 	}
 	
-	public static function slug($str)
+	public static function slug($str, $separator = '-')
 	{
-		return Str::slug(strtr($str, self::listLetters()));
+		return trim(Str::slug(strtr($str, self::listLetters()), $separator));
 	}
 	
 	public static function listLetters()
