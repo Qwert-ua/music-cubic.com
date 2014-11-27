@@ -29,8 +29,40 @@
 		@endif
 	    
 		<div class="container">
-	    	@yield('content')
+	    	<div class="row row-fluid col-md">
+	    		@yield('title_user')
+				@yield('content')
+	    	</div>
 		</div>
+		
+		<div class="modal fade" id="UploadUserIcon">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					{{ Form::open(array('url' => 'uploadicon', 'files' => 'true')) }}
+					
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title">Загрузка аватарки</h4>
+					</div>
+					<div class="modal-body">
+						
+						
+						
+						{{ Form::file('image') }}
+						
+						
+						
+					</div>
+					<div class="modal-footer">
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Не хочу</button>
+						<button type="submit" class="btn btn-primary">Загрузить</button>
+					</div>
+					
+					{{ Form::close() }}
+					
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
