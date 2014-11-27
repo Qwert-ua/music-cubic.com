@@ -115,6 +115,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static function save_data($id)
 	{
 		$data = Input::all();
+		$data['username'] = Translit::slug(array_get($data, 'username'), '_');
+		
 		$validation = self::isValid($id, $data);
 		
 		if($validation === true)
@@ -181,6 +183,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static function registration()
 	{
 		$data = Input::all();
+		$data['username'] = Translit::slug(array_get($data, 'username'), '_');
+		
 		$validation = self::isValid_Registration($data);
 		
 		if($validation === true)
