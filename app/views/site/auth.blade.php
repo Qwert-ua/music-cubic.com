@@ -11,20 +11,28 @@
 	
 			<br>
 		
-			<form role="form" method="post" action="/auth/login">
+			{{ Form::open(array('url' => '/auth/login')) }}
+			
 				<div class="form-group">
-					<input type="text" name="email" class="form-control" placeholder="E-mail">
+					{{ Form::text('email', NULL, array('class' => 'form-control', 'placeholder' => 'E-mail')) }}
 				</div>
 					
 				<div class="form-group">
-					<input type="password" name="password" class="form-control" placeholder="Пароль">
+					{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Пароль')) }}
+				</div>
+				
+				<div class="form-group">
+					<label>
+						{{ Form::checkbox('remember') }} Запомнить меня
+					</label>
 				</div>
 					
 				<div class="btn-group">
 					<button type="submit" class="btn btn-default btn-primary">Войти</button>
 					<a href="/registration" class="btn btn-default">Регистрация</a>
 				</div>
-			</form> 
+			
+			{{ Form::close() }}
 			
 		</div>
 	</div>
