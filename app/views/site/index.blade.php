@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="_token" content="{{ csrf_token() }}" />
 		<title>Music Kubik</title>
 
 		<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">

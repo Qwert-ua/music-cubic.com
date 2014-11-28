@@ -132,5 +132,7 @@ Route::filter('csrf', function()
 
 Route::filter('ajax', function()
 {
-	if(!Request::ajax()) return Response::make('Not access');
+	//if(!Request::ajax()) 
+	$token = Request::ajax() ? Request::header('X-CSRF-Token') : Input::get('_token');
+    if (!Request::ajax() || Session::token() != $token) return Response::make('Not access');
 });
