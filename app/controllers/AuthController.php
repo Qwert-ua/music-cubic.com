@@ -47,7 +47,7 @@ class AuthController extends Controller {
 		}
 		else
 		{
-			Session::put('alert', array('yellow', 'Не правильно ведено имя пользователя и/или пароль или aккаунт заблокирован !'));
+			Session::put('alert', array('yellow', 'Не правильно ведено имя пользователя и/или пароль или аккаунт заблокирован !'));
 			return Redirect::to(URL::previous());
 		}
 	}
@@ -71,12 +71,13 @@ class AuthController extends Controller {
 	
 		$auth = Auth::attempt(array(
 			'username' => array_get($data, 'username'), 
-			'password' => array_get($data, 'password')
+			'password' => array_get($data, 'password'),
+			'active' => 1
 		));
 		
 		$auth_user = Auth::user();
 		
-		if($auth === true && $auth_user->hasRole('admin') === true && $auth_user->hasActive() === true)
+		/*if($auth === true && $auth_user->hasRole('admin') === true && $auth_user->hasActive() === true)
 		{
 			return Redirect::intended('admin');	
 		}
@@ -88,6 +89,16 @@ class AuthController extends Controller {
 		else
 		{
 			Session::put('alert', array('red', 'Не правильно ведено имя пользователя и/или пароль !'));
+			return Redirect::to(URL::previous());
+		}*/
+		
+		if($auth === true && $auth_user->hasRole('admin') === true)
+		{
+			return Redirect::intended('admin');	
+		}
+		else
+		{
+			Session::put('alert', array('yellow', 'Не правильно ведено имя пользователя и/или пароль или аккаунт заблокирован !'));
 			return Redirect::to(URL::previous());
 		}
 	}
