@@ -8,7 +8,7 @@
 	</blockquote>
 	<div class="clearfix"></div>
 	<div class="avatar">
-	<img class="img-rounded user-icon-images " src="/uploads/users/{{ $user->dir }}/{{ $user->icon }}" alt="{{ $user->username }}">
+	<img class="img-rounded user-icon-images " src="/imagecache/user/{{ $user->dir }}/{{ $user->icon }}?{{time()}}" alt="{{ $user->username }}">
 	<div class="user-icon-panel text-center ">
 		
 		<div class="btn-group">
