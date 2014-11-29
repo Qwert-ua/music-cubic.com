@@ -51,27 +51,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
 	    $rule = array();
 	     
-	    if($id > 0) $rule['username'] = 'required|min:6|max:32|unique:users,username,' . $id;
-	    else $rule['username'] = 'required|min:6|max:32|unique:users,username';
-	    
+	    $rule['username'] = 'required|min:6|max:32|unique:users,username,' . $id;
 	    $rule['firstname'] = 'required|min:3|max:32';
         $rule['lastname'] = 'required|min:3|max:32';
-        
-        if($id > 0) $rule['email'] = 'required|email|unique:users,email,' . $id;
-	    else $rule['email'] = 'required|email|unique:users,email';
-        
-        //$rule['country'] = 'required';
+        $rule['email'] = 'required|email|unique:users,email,' . $id;
+	    //$rule['country'] = 'required';
         //$rule['city'] = 'required';
         $rule['address'] = 'required';
         $rule['birthday'] = 'required';
 	    
 	    if($id > 0)
 	    {
-			if(!empty($data['password']))
-			{
-				$rule['password'] = 'required|min:6|max:32|same:confirm_password';
-				$rule['confirm_password'] = 'required|min:6|max:32';
-			}
+			$rule['password'] = 'min:6|max:32|same:confirm_password';
+			$rule['confirm_password'] = 'min:6|max:32';
 	    }
 	    else
 	    {
@@ -131,6 +123,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				self::makeDirectory('uploads/users/' . $dir);
 				
 				$user = new User;
+				$user->dir = $dir;
+				$user->active = 1;
 			}
 			
 			$user->username = array_get($data, 'username');
@@ -142,8 +136,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$user->address = array_get($data, 'address', 0);
 			$user->email = array_get($data, 'email');
 			if(array_get($data, 'password')) $user->password = Hash::make(array_get($data, 'password'));
-			$user->active = 1;
-			$user->dir = $dir;
+			
 			$user->save();
 			
 			$user->roles()->detach();

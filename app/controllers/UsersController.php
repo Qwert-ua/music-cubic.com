@@ -25,9 +25,9 @@ class UsersController extends Controller {
 	
 	public function action_save()
 	{
-		$data = Input::all();
+		User::save_data(Auth::user()->id);
 		
-		dd($data);
+		return Redirect::to(URL::previous());
 	}
 	
 	// =========================== Admin =========================== //

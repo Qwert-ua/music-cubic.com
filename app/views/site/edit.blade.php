@@ -35,6 +35,11 @@
 			</div>
 			
 			<div class="form-group">
+				<label>Адрес</label>
+				{{ Form::text('address', null, array('class' => 'form-control')) }}
+			</div>
+			
+			<div class="form-group">
 				<label>E-mail</label>
 				{{ Form::text('email', null, array('class' => 'form-control')) }}
 			</div>
@@ -43,12 +48,12 @@
 			
 			<div class="form-group">
 				<label>Пароль</label>
-				{{ Form::password('name', array('class' => 'form-control')) }}
+				{{ Form::password('password', array('class' => 'form-control')) }}
 			</div>
 			
 			<div class="form-group">
 				<label>Подтверждение пароля</label>
-				{{ Form::password('name', array('class' => 'form-control')) }}
+				{{ Form::password('confirm_password', array('class' => 'form-control')) }}
 			</div>
 			
 			<button type="submit" class="btn btn-success">Обновить информацию</button>
