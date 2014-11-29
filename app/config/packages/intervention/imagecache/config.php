@@ -16,7 +16,7 @@ return array(
     |
     */
    
-    'route' => null,
+    'route' => 'imagecache',
 
     /*
     |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ return array(
     */
     
     'paths' => array(
-        public_path('upload'),
+        public_path('uploads/users'),
         public_path('images')
     ),
 
@@ -58,6 +58,14 @@ return array(
         },
         'large' => function($image) {
             return $image->fit(480, 360);
+        },
+        
+        //My 
+        
+        'user' => function($image) {
+            return $image->fit(260, 390, function ($constraint) {
+    $constraint->upsize();
+});
         }
 
     ),
