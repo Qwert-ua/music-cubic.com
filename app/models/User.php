@@ -128,7 +128,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			else
 			{
 				$dir = date('Ymd') . '_' . array_get($data, 'username');
-				File::makeDirectory('uploads/users/' . $dir, 0777);
+				self::makeDirectory('uploads/users/' . $dir);
 				
 				$user = new User;
 			}
@@ -190,7 +190,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		if($validation === true)
 		{
 			$dir = date('Ymd') . '_' . array_get($data, 'username');
-			File::makeDirectory('uploads/users/' . $dir, 0777);
+			self::makeDirectory('uploads/users/' . $dir);
 
 			$user = new User;
 			$user->email = array_get($data, 'email');
@@ -236,20 +236,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		$data = Input::file('image');
 		$input = array('image' => Input::file('image'));
+		$user = Auth::user();
 		
 		$validation = Validator::make($input, array(
 			'image' => 'required|max:5000|mimes:jpeg,gif,png,bmp'
 		));
 		
-		if($validation->passes()) 
+		if($validation->passes() && $user->id) 
 		{
-			$user_id = Auth::user()->id;
-			$dir = 'uploads/users/' . Auth::user()->dir;
+			$dir = 'uploads/users/' . $user->dir;
 
 			$img = Image::make($_FILES['image']['tmp_name']);
 			$img->save($dir . '/icon.' . $data->getClientOriginalExtension());
 		
-			$user = User::find($user_id);
+			$user = User::find($user->id);
 			$user->icon = 'icon.' . $data->getClientOriginalExtension();
 			$user->save();
 		}
@@ -257,6 +257,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		{
 			Session::put('alert_valid', $validation->messages()->toArray());
 			return false;
+		}
+	}
+	
+	public static function makeDirectory($dir)
+	{
+		if(!empty($dir) && !is_dir($dir))
+		{
+			mkdir($dir, 0777);
+			chmod($dir, 0777);
+			//chown($dir, 'd.denis');
 		}
 	}
 
