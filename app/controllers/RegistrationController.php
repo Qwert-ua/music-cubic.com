@@ -29,6 +29,15 @@ class RegistrationController extends Controller {
 				 $message->from('no-replay@music-cubic.com', 'MusicCubic');
 				 $message->to($user->email, $user->username)->subject('Welcome to MusicCubic Site!');
 			});
+			
+			if(count(Mail::failures()) > 0)
+			{
+				Session::put('alert', array('red', 'Не удалось отправить на e-mail код активации обратитесь к администратору сайта'));
+			}
+		}
+		else
+		{
+			Session::put('alert', array('red', 'Регистрация не удалась, попробуйте позже'));
 		}
 		
 		return Redirect::to(URL::previous());
@@ -37,7 +46,7 @@ class RegistrationController extends Controller {
 	public function action_activation($activation = null)
 	{
 		User::activation($activation);
-
+		Session::put('alert', array('green', 'Ваш аккаунт активирован, введите имя пользователя и пароль что бы войти'));
 		return Redirect::to('/');
 	}
 }
