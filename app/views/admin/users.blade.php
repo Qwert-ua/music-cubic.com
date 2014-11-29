@@ -44,6 +44,7 @@
 						<tbody>
 							
 							@foreach($users as $user)
+								@if($user->username != 'admin')
 								<tr>
 									<td>{{ $user->id }}</td>
 									<td>{{ $user->firstname }} {{ $user->lastname }}</td>
@@ -69,6 +70,7 @@
 										
 									</td>
 								</tr>
+								@endif
 							@endforeach
 						</tbody>
 						
