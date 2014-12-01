@@ -42,26 +42,33 @@ $(document).ready(function(){
 			}
 		}
     });
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('.datepicker_birthday').datepicker({
+		format: "yyyy-mm-dd",
+		startView: 2,
+		language: "ru",
+		autoclose: true,
+		forceParse: false,
+	});
     
     new jBox('Confirm', {
 	    confirmButton: 'Да',
 	    cancelButton: 'Нет'
 	});
 	
-	$('.tooltip_top_menu').tooltip();
-	
 	$('select').selectpicker({
 		size: 10
 	});
 	
-	$('select').selectpicker();
-
-	$('.datepicker').datepicker({
-	    language: "ru",
-	    autoclose: true,
-	    todayHighlight: true,
-	    format: 'd M yyyy'
-	});
-	return false;
-
+	$('select.select_artist').on('change', function(){
+	    //var selected = $('.select_artist option:selected').val();
+		//alert(selected);
+		
+		$('.hide_select').removeAttr('disabled');
+		$('select').selectpicker('refresh');
+ 	});
 });
+
+
