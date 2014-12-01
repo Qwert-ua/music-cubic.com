@@ -22,15 +22,15 @@
 			</ul>
     
 			<ul class="nav navbar-nav navbar-right">
-        		<li><a href="#"><span class="glyphicon glyphicon-comment"></span></a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-eye-open"></span></a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-volume-up"></span></a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-random"></span></a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-list-alt"></span></a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-camera"></span></a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>
-				<li><a href="/auth/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
+        		<li><a href="/audio" data-toggle="tooltip" data-placement="bottom" title="Загрузка&nbsp;музыки"><span class="fa fa-download"></span></a></li>
+				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-user"></span></a></li>
+				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-eye-open"></span></a></li>
+				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-volume-up"></span></a></li>
+				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-random"></span></a></li>
+				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-list-alt"></span></a></li>
+				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-camera"></span></a></li>
+				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-cog"></span></a></li>
+				<li><a href="/auth/logout" data-toggle="tooltip" data-placement="bottom" title="Выход"><span class="glyphicon glyphicon-log-out"></span></a></li>
 			</ul>
 		</div><!--/.nav-collapse -->
 	</div>
