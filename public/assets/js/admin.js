@@ -81,11 +81,19 @@ $(document).ready(function(){
 		autoclose: true
 	});
 	
-	$('.datepicker').datepicker({
+	/*$('.datepicker').datepicker({
 		format: "dd M yyyy",
 		startView: 2,
 		language: "ru",
 		autoclose: true
+	});*/
+	
+	$('.datepicker').datepicker({
+		format: "yyyy-mm-dd",
+		startView: 2,
+		language: "ru",
+		autoclose: true,
+		forceParse: false,
 	});
 	
 	$('.tooltip_top_menu').tooltip();
