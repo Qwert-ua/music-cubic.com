@@ -9,17 +9,17 @@ class Artist extends Eloquent {
 	    $rule = array();
 	     
 	    $rule['name'] = 'required|min:6|max:32|unique:artists,name,' . $id;
-	    $rule['admins'] = 'required';
+	    //$rule['admins'] = 'required';
 	    $rule['group_created'] = 'required';
-	    $rule['group_closed'] = 'required';
+	    //$rule['group_closed'] = 'required';
 	    $rule['genre'] = 'required';
 	    $rule['country'] = 'required';
 	    $rule['city'] = 'required';
-	    $rule['group_composition'] = 'required';
-	    $rule['label'] = 'required|min:3|max:64';
-	    $rule['place_base'] = 'required';
-	    $rule['place_business'] = 'required';
-	    $rule['links'] = 'required';
+	    //$rule['group_composition'] = 'required';
+	    //$rule['label'] = 'required|min:3|max:64';
+	    //$rule['place_base'] = 'required';
+	    //$rule['place_business'] = 'required';
+	    //$rule['links'] = 'required';
 	    
 	    $validator = Validator::make($data, $rule);
 	        
@@ -79,8 +79,10 @@ class Artist extends Eloquent {
 	{
 		if(!empty($id))
 		{
-			$user = Artists::find($id);
+			$user = Artist::find($id);
 			$user->delete();
+			
+			Session::put('alert', array('green', 'Артист удален'));
 		}
 	}
 }

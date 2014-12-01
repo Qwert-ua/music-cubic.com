@@ -47,5 +47,12 @@ class ArtistsController extends Controller {
 			return Redirect::to('admin/artists/form/' . $artist->id); 
 		}
 	}
+	
+	public function action_admin_destroy($id)
+	{
+		$artist = Artist::destroy_data($id);
+		
+		return Redirect::to(URL::previous()); 
+	}
 
 }
