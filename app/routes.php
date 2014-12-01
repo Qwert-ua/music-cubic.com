@@ -16,12 +16,12 @@ Route::pattern('role', '[0-9]+');
 
 Route::group(array('before' => 'ajax', 'prefix' => 'ajax'), function()
 {
-	Route::post('notify', array('before' => 'ajax', 'uses' =>'AjaxController@action_notify'));
-	Route::post('selectcity', array('before' => 'ajax', 'uses' =>'AjaxController@action_selectcity'));
+	Route::post('notify', 'AjaxController@action_notify');
+	Route::post('selectcity', 'AjaxController@action_selectcity');
 });
 
 Route::get('admin/auth', 'AuthController@action_admin_index');
-Route::post('admin/auth/login', 'AuthController@action_admin_login');
+Route::post('admin/auth/login', array('before' => 'csrf', 'uses' => 'AuthController@action_admin_login'));
 Route::get('admin/auth/logout', 'AuthController@action_admin_logout');
 
 Route::group(array('before' => 'auth.admin', 'prefix' => 'admin'), function()
@@ -30,14 +30,15 @@ Route::group(array('before' => 'auth.admin', 'prefix' => 'admin'), function()
     
     Route::get('users/{role?}', 'UsersController@action_admin_index');
     Route::get('users/form/{id?}', 'UsersController@action_admin_form');
-    Route::post('users/save/{id?}', 'UsersController@action_admin_save');
+    Route::post('users/save/{id?}', array('before' => 'csrf', 'uses' => 'UsersController@action_admin_save'));
     Route::get('users/destroy/{id}', 'UsersController@action_admin_destroy');
     
     Route::get('complaints', 'ComplaintsController@action_admin_index');
     
     Route::get('artists', 'ArtistsController@action_admin_index');
     Route::get('artists/form/{id?}', 'ArtistsController@action_admin_form');
-    Route::post('artists/save/{id?}', 'ArtistsController@action_admin_save');
+    Route::post('artists/save/{id?}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_admin_save'));
+    Route::get('artists/destroy/{id?}', 'ArtistsController@action_admin_destroy');
     
     Route::get('legal', 'LegalController@action_admin_index');
     Route::get('audio', 'AudioController@action_admin_index');
@@ -46,19 +47,24 @@ Route::group(array('before' => 'auth.admin', 'prefix' => 'admin'), function()
 });
 
 Route::get('auth', 'AuthController@action_index');
-Route::post('auth/login', 'AuthController@action_login');
+Route::post('auth/login', array('before' => 'csrf', 'uses' => 'AuthController@action_login'));
 Route::get('auth/logout', 'AuthController@action_logout');
 
 Route::get('registration', 'RegistrationController@action_index');
-Route::post('registration/send', 'RegistrationController@action_send');
+Route::post('registration/send', array('before' => 'csrf', 'uses' => 'RegistrationController@action_send')); 
 Route::get('activation/{activation?}', 'RegistrationController@action_activation');
 
 Route::group(array('before' => 'auth.user'), function()
 {
 	Route::get('/', 'HomeController@action_index');	
-	Route::post('uploadicon', 'UsersController@action_upload_icon');
+	
+	Route::post('uploadicon', array('before' => 'csrf', 'uses' => 'UsersController@action_upload_icon'));
+	
 	Route::get('edit', 'UsersController@action_edit');
-	Route::post('edit', 'UsersController@action_save');
+	Route::post('edit', array('before' => 'csrf', 'uses' => 'UsersController@action_save'));
+
+    Route::get('audio', 'AudioController@action_index');
+    Route::post('audio', array('before' => 'csrf', 'uses' => 'AudioController@action_upload'));
 });
 
 
