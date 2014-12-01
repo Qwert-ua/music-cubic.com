@@ -30,8 +30,9 @@
 	    	<div class="text-center">
 		    	<h3>QWERT <small>cms</small></h3>
 	    	</div>
-		    	    	
-			<form role="form" method="post" action="/admin/auth/login">
+	    	
+	    	{{ Form::open([ 'url' => '/admin/auth/login' ]) }}
+	    	
 				<div class="form-group">
 					<input type="text" name="username" class="form-control" placeholder="Имя пользователя">
   				</div>
@@ -41,7 +42,8 @@
   				</div>
   				
   				<button type="submit" class="btn btn-default btn-enter">Войти</button>
-			</form>
+			
+			{{ Form::close() }}
 	    	
     	</div>
 
