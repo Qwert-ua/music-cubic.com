@@ -12,7 +12,7 @@
 	    <link href="/assets/bootstrap/css/non-responsive.css" rel="stylesheet">
 	    
 	    <!-- Datepicker -->
-	    <link href="/assets/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet">
+	    <link href="/assets/eternicode-bootstrap-datepicker/css/datepicker3.css" rel="stylesheet">
 	
 		<!-- bootstrapvalidator -->
 		<link href="/assets/bootstrapvalidator/css/bootstrapValidator.min.css" rel="stylesheet">
@@ -94,8 +94,8 @@
 		<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
 	  
 		<!-- Datepicker -->
-		<script src="/assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-		<script src="/assets/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru.js"></script>
+		<script src="/assets/eternicode-bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="/assets/eternicode-bootstrap-datepicker/js/locales/bootstrap-datepicker.ru.js"></script>
 	  
 		<!-- bootstrapvalidator -->
 		<script src="/assets/bootstrapvalidator/js/bootstrapValidator.min.js"></script>

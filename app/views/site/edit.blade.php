@@ -31,7 +31,7 @@
 			
 			<div class="form-group">
 				<label>День рождения</label>
-				{{ Form::text('birthday', null, array('class' => 'form-control')) }}
+				{{ Form::text('birthday', NULL, array('class' => 'form-control datepicker_birthday')) }}
 			</div>
 			
 			<div class="form-group">
