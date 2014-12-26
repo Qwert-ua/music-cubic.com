@@ -1,9 +1,29 @@
+$(document).on('change', '.btn-file :file', function() {
+	var input = $(this),
+	numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+	input.trigger('fileselect', [numFiles, label]);
+});
+
 $(document).ready(function(){ 
 	
 	$.ajaxSetup({
         headers: {
             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
         }
+    });
+    
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
     });
 	
 	$.ajax({
@@ -63,12 +83,34 @@ $(document).ready(function(){
 	});
 	
 	$('select.select_artist').on('change', function(){
-	    //var selected = $('.select_artist option:selected').val();
-		//alert(selected);
+	    
+	    if($('.select_artist option:selected').val() == 0)
+		{
+			$('.hide_select').prop('disabled', true);
+			$('select').selectpicker('refresh');
+			$('.btn-file').addClass('active');
+		}
+		else
+		{
+			$('.hide_select').removeProp('disabled');
+			$('select').selectpicker('refresh');
+			$('.btn-file').removeClass('active');
+		}
 		
-		$('.hide_select').removeAttr('disabled');
-		$('select').selectpicker('refresh');
  	});
+ 	
+ 	function centerModal() {
+    	$(this).css('display', 'block');
+		var $dialog = $(this).find(".modal-dialog");
+		var offset = ($(window).height() - $dialog.height()) / 4;
+		// Center modal vertically in window
+		$dialog.css("margin-top", offset);
+	}
+
+	$('.modal').on('show.bs.modal', centerModal);
+	$(window).on("resize", function () {
+    	$('.modal:visible').each(centerModal);
+	});
 });
 
 

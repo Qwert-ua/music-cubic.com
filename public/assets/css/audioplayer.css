@@ -1,0 +1,15 @@
+.btn-audio-play {
+	position: relative;
+}
+
+.control-audio-play {
+	position: absolute;
+	left: 0;
+	top:0;
+}
+
+.control-audio-pause {
+	position: absolute;
+	left: 0;
+	top:0;
+}
