@@ -6,7 +6,7 @@
 		<div class="col-md-offset-4 col-md-4 col-md-offset-4 auth"> 
 		
 			<div class="text-center">
-				<h3>Авторизация</h3>
+				<h3>{{ trans('trans.title.auth') }}</h3>
 			</div>
 	
 			<br>
@@ -18,18 +18,18 @@
 				</div>
 					
 				<div class="form-group">
-					{{ Form::password('password', array('class' => 'form-control', 'placeholder' => 'Пароль')) }}
+					{{ Form::password('password', array('class' => 'form-control', 'placeholder' => trans('trans.form.password'))) }}
 				</div>
 				
 				<div class="form-group">
 					<label>
-						{{ Form::checkbox('remember') }} Запомнить меня
+						{{ Form::checkbox('remember') }} {{ trans('trans.form.member') }}
 					</label>
 				</div>
 					
 				<div class="btn-group">
-					<button type="submit" class="btn btn-default btn-primary">Войти</button>
-					<a href="/registration" class="btn btn-default">Регистрация</a>
+					<button type="submit" class="btn btn-default btn-primary">{{ trans('trans.btn.login') }}</button>
+					<a href="/registration" class="btn btn-default">{{ trans('trans.btn.register') }}</a>
 				</div>
 			
 			{{ Form::close() }}

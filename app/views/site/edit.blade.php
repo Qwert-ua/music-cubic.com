@@ -9,33 +9,33 @@
 	<div class="col-md-9">
 		
 		<blockquote>
-			<p>Редактирование персональной информации</p>
+			<p>{{ trans('trans.title.edit_pers_data') }}</p>
 		</blockquote>
 		
 		{{ Form::model($user) }}
 		
 			<div class="form-group">
-				<label>Имя пользователя</label>
+				<label>{{ trans('trans.form.username') }}</label>
 				{{ Form::text('username', null, array('class' => 'form-control')) }}
 			</div>
 			
 			<div class="form-group">
-				<label>Имя</label>
+				<label>{{ trans('trans.form.first_name') }}</label>
 				{{ Form::text('firstname', null, array('class' => 'form-control')) }}
 			</div>
 			
 			<div class="form-group">
-				<label>Фамилия</label>
+				<label>{{ trans('trans.form.last_name') }}</label>
 				{{ Form::text('lastname', null, array('class' => 'form-control')) }}
 			</div>
 			
 			<div class="form-group">
-				<label>День рождения</label>
+				<label>{{ trans('trans.form.birthday') }}</label>
 				{{ Form::text('birthday', NULL, array('class' => 'form-control datepicker_birthday')) }}
 			</div>
 			
 			<div class="form-group">
-				<label>Адрес</label>
+				<label>{{ trans('trans.form.addrress') }}</label>
 				{{ Form::text('address', null, array('class' => 'form-control')) }}
 			</div>
 			
@@ -47,16 +47,16 @@
 			<hr />
 			
 			<div class="form-group">
-				<label>Пароль</label>
+				<label>{{ trans('trans.form.password') }}</label>
 				{{ Form::password('password', array('class' => 'form-control')) }}
 			</div>
 			
 			<div class="form-group">
-				<label>Подтверждение пароля</label>
+				<label>{{ trans('trans.form.confirm_password') }}</label>
 				{{ Form::password('confirm_password', array('class' => 'form-control')) }}
 			</div>
 			
-			<button type="submit" class="btn btn-success">Обновить информацию</button>
+			<button type="submit" class="btn btn-success">{{ trans('trans.btn.update_pers_info') }}</button>
 		
 		{{ Form::close() }}
 		

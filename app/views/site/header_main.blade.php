@@ -7,10 +7,10 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			  
+			   
 			<a class="navbar-brand" href="/"><img src="/images/logo.png" /></a>
 		</div>
-    
+   
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<form class="navbar-form navbar-left" role="search">
@@ -22,15 +22,16 @@
 			</ul>
     
 			<ul class="nav navbar-nav navbar-right">
-        		<li><a href="/audio" data-toggle="tooltip" data-placement="bottom" title="Загрузка&nbsp;музыки"><span class="fa fa-download"></span></a></li>
-				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-user"></span></a></li>
-				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-eye-open"></span></a></li>
+        		<li><a href="/audio" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.music')}}"><span class="fa fa-music"></span></a></li>
+        		<li><a href="/audio/upload" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.upload_music')}}"><span class="fa fa-download"></span></a></li>
+				<li><a href="/edit" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.pers_info')}}"><span class="glyphicon glyphicon-user"></span></a></li>
+				<li><a href="/photo" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.photo')}}"><span class="fa fa-picture-o"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-volume-up"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-random"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-list-alt"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-camera"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-cog"></span></a></li>
-				<li><a href="/auth/logout" data-toggle="tooltip" data-placement="bottom" title="Выход"><span class="glyphicon glyphicon-log-out"></span></a></li>
+				<li><a href="/auth/logout" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.logout')}}"><span class="glyphicon glyphicon-log-out"></span></a></li>
 			</ul>
 		</div><!--/.nav-collapse -->
 	</div>
