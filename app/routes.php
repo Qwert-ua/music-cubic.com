@@ -44,6 +44,8 @@ Route::group(array('before' => 'auth.admin', 'prefix' => 'admin'), function()
     Route::get('audio', 'AudioController@action_admin_index');
     Route::get('poster', 'PosterController@action_admin_index');
     Route::get('statistics', 'StatisticsController@action_admin_index');
+    
+    Route::get('photo', 'PhotoController@action_admin_index');
 });
 
 Route::get('auth', 'AuthController@action_index');
@@ -64,7 +66,14 @@ Route::group(array('before' => 'auth.user'), function()
 	Route::post('edit', array('before' => 'csrf', 'uses' => 'UsersController@action_save'));
 
     Route::get('audio', 'AudioController@action_index');
+    Route::get('audio/upload', 'AudioController@action_form');
     Route::post('audio', array('before' => 'csrf', 'uses' => 'AudioController@action_upload'));
+    
+    Route::get('photo', 'PhotoController@action_index');
+    Route::get('photo/album', 'PhotoController@action_create');
+    Route::post('photo/save', 'PhotoController@action_save');
+    Route::post('photo/upload', 'PhotoController@action_upload');
+    
 });
 
 
