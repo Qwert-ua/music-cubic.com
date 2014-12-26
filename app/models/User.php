@@ -258,8 +258,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		if(!empty($dir) && !is_dir($dir))
 		{
 			mkdir($dir, 0777);
-			chmod($dir, 0777);
-			//chown($dir, 'd.denis');
 		}
 	}
 
