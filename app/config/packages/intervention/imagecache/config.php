@@ -60,12 +60,21 @@ return array(
             return $image->fit(480, 360);
         },
         
-        //My 
         
+        //My 
+        'big' => function($image) {
+            return $image->resize(null, 540, function ($constraint) {
+				$constraint->aspectRatio();
+				$constraint->upsize();
+			});
+        },
         'user' => function($image) {
             return $image->fit(260, 390, function ($constraint) {
-    $constraint->upsize();
-});
+				$constraint->upsize();
+			});
+        },
+        'icon' => function($image) {
+            return $image->fit(180, 135);
         }
 
     ),

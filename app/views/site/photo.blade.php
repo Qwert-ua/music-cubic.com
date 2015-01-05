@@ -21,15 +21,21 @@
 		
 		<div class="row">
 			
-			@for($i = 0; $i <= 25; $i++)
+			@foreach($albums as $val_album)
 			
-				<div class="col-xs-6 col-md-3">
-					<a href="#" class="thumbnail">
-						<img data-src="holder.js/100%x180" alt="...">
+				<div class="col-xs-3">
+					<a href="/photo/album/{{ $val_album->id }}" class="thumbnail">
+						<img src="{{ Photo::get_first($val_album->id) }}" alt="{{$val_album->name}}">
+						
+						<div class="photo-name">
+							<b>{{$val_album->name}}</b>
+							<br />
+							<small>{{$val_album->description}}</small>
+						</div>
 					</a>
 				</div>
 			
-			@endfor
+			@endforeach
 
   		</div>
 		
@@ -72,6 +78,5 @@
 			</div>
 		</div>
 	</div>
-
 	
 @stop

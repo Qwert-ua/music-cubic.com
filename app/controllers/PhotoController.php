@@ -4,23 +4,53 @@ class PhotoController extends Controller {
 
 	public function action_index()
 	{
-		return View::make('site.photo');
+		$data = array(
+			'albums' => Photo::get_album()
+		);
+		
+		return View::make('site.photo', $data);
 	}
 	
-	public function action_create()
+	public function action_album($id = false)
 	{
-		return View::make('site.photo_create');
+		$data = array(
+			'post'   => Input::all(),
+			'album' => Photo::get_album($id),
+			'user' => Auth::user()
+		);		
+		
+		return View::make('site.photo_album', $data);
 	}
 	
-	public function action_save()
+	public function action_edit_album($id = false)
 	{
-		Photo::save_data();
-		return Redirect::to(URL::previous());
+		$data = array(
+			'post'   => Input::all(),
+			'album' => Photo::get_album($id),
+			'user' => Auth::user()
+		);		
+		
+		return View::make('site.photo_edit_album', $data);
 	}
 	
-	public function action_upload()
+	public function action_save($id = 0)
 	{
-		return '0';
+		$photo = Photo::save_data($id);
+		
+		if(!empty($photo))
+		{
+			return Redirect::to('photo/editalbum/' . $photo->id);
+		}
+		else
+		{
+			return Redirect::back();
+		}
+	}
+	
+	public function action_delete_album($id)
+	{
+		Photo::destroy_data($id);
+		return Redirect::to('photo');
 	}
 	
 	// =========================== Admin =========================== //
