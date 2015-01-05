@@ -40,7 +40,7 @@ class ArtistsController extends Controller {
 		
 		if($artist === false)
 		{
-			return Redirect::to(URL::previous()); 
+			return Redirect::back(); 
 		}
 		else
 		{
@@ -52,7 +52,7 @@ class ArtistsController extends Controller {
 	{
 		$artist = Artist::destroy_data($id);
 		
-		return Redirect::to(URL::previous()); 
+		return Redirect::back(); 
 	}
 
 }

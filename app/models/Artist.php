@@ -62,13 +62,13 @@ class Artist extends Eloquent {
 			$artist->links = serialize(array_filter(array_get($data, 'links'), 'strlen'));
 			$artist->save();
 			
-			Session::put('alert', array('green', 'Ok'));
+			Session::flash('alert', array('green', 'Ok'));
 			
 			return $artist;
 		}
 		else
 		{
-			Session::put('alert_valid', self::isValid($id, $data)->toArray());
+			Session::flash('alert_valid', self::isValid($id, $data)->toArray());
 			Session::flash('post', $data);
 			
 			return false;
@@ -82,7 +82,7 @@ class Artist extends Eloquent {
 			$user = Artist::find($id);
 			$user->delete();
 			
-			Session::put('alert', array('green', 'Артист удален'));
+			Session::flash('alert', array('green', 'Артист удален'));
 		}
 	}
 }

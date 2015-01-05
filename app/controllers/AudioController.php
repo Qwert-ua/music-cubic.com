@@ -24,7 +24,7 @@ class AudioController extends Controller {
 	{
 		Audio::save_data($id);
 		
-		return Redirect::to(URL::previous());
+		return Redirect::back();
 	}
 	
 	// =========================== Admin =========================== //

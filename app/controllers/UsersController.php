@@ -11,7 +11,7 @@ class UsersController extends Controller {
 	{
 		User::upload_icon();
 		
-		return Redirect::to(URL::previous());
+		return Redirect::back();
 	}
 	
 	public function action_edit()
@@ -27,7 +27,7 @@ class UsersController extends Controller {
 	{
 		User::save_data(Auth::user()->id);
 		
-		return Redirect::to(URL::previous());
+		return Redirect::back();
 	}
 	
 	// =========================== Admin =========================== //
@@ -60,7 +60,7 @@ class UsersController extends Controller {
 		
 		if($user === false)
 		{
-			return Redirect::to(URL::previous()); 
+			return Redirect::back(); 
 		}
 		else
 		{
@@ -71,7 +71,7 @@ class UsersController extends Controller {
 	public function action_admin_destroy($id = false)
 	{
 		User::destroy_data($id);
-		return Redirect::to(URL::previous());
+		return Redirect::back();
 	}
 
 }

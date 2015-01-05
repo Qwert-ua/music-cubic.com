@@ -13,6 +13,7 @@
 		<link href="/assets/bootstrap-select-master/css/bootstrap-select.min.css" rel="stylesheet">
 		<link href="/assets/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="/assets/ajax-file-upload-form/css/style.css" rel="stylesheet">
+		<link href="/assets/lightbox/css/lightbox.css" rel="stylesheet">
 		<link href="/assets/css/site.css" rel="stylesheet">
 		
 	    <!--[if lt IE 9]>
@@ -77,6 +78,9 @@
 		<script src="/assets/ajax-file-upload-form/js/jquery.iframe-transport.js"></script>
 		<script src="/assets/ajax-file-upload-form/js/jquery.fileupload.js"></script>
 		<script src="/assets/ajax-file-upload-form/js/script.js"></script>
+		<script src="/assets/lightbox/js/lightbox.min.js"></script>
 		<script src="/assets/js/site.js"></script>
 	</body>
 </html>
+
+@include('notify')

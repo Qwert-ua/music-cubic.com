@@ -12,7 +12,7 @@
 			<p>{{ trans('trans.title.upload_music') }}</p>
 		</blockquote>
 
-		{{ Form::open([ 'files' => 'true' ]) }}
+		{{ Form::open([ 'url' => 'audio', 'files' => 'true' ]) }}
 
 			<div class="row">
 				<div class="col-md-6">

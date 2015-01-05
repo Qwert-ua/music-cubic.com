@@ -12,7 +12,7 @@
 	<div class="user-icon-panel text-center ">
 		
 		<div class="btn-group">
-			<a href="edit" class="btn btn-sm btn-link btn-user-iconimages"><i class="fa fa-pencil-square-o"></i> {{ trans('trans.btn.edit') }}</a>	
+			<a href="/edit" class="btn btn-sm btn-link btn-user-iconimages"><i class="fa fa-pencil-square-o"></i> {{ trans('trans.btn.edit') }}</a>	
 			<button type="button" class="btn btn-sm btn-link btn-user-iconimages" data-toggle="modal" data-target="#UploadUserIcon"><i class="fa fa-download"></i> {{ trans('trans.btn.upload_icon') }}</button>
 		</div>
 		

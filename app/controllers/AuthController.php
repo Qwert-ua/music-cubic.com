@@ -32,13 +32,13 @@ class AuthController extends Controller {
 		}
 		else if($auth === true && $auth_user->hasRole('login') === true && $auth_user->hasActive() === false)
 		{
-			Session::put('alert', array('yellow', 'Аккаунт заблокирован !'));
-			return Redirect::to(URL::previous());
+			Session::flash('alert', array('yellow', 'Аккаунт заблокирован !'));
+			return Redirect::back();
 		}
 		else
 		{
-			Session::put('alert', array('red', 'Не правильно ведено имя пользователя и/или пароль !'));
-			return Redirect::to(URL::previous());
+			Session::flash('alert', array('red', 'Не правильно ведено имя пользователя и/или пароль !'));
+			return Redirect::back();
 		}*/
 		
 		if($auth === true && $auth_user->hasRole('login') === true)
@@ -47,8 +47,8 @@ class AuthController extends Controller {
 		}
 		else
 		{
-			Session::put('alert', array('yellow', 'Не правильно ведено имя пользователя и/или пароль или аккаунт заблокирован !'));
-			return Redirect::to(URL::previous());
+			Session::flash('alert', array('yellow', 'Не правильно ведено имя пользователя и/или пароль или аккаунт заблокирован !'));
+			return Redirect::back();
 		}
 	}
 	
@@ -83,13 +83,13 @@ class AuthController extends Controller {
 		}
 		else if($auth === true && $auth_user->hasRole('admin') === true && $auth_user->hasActive() === false)
 		{
-			Session::put('alert', array('yellow', 'Аккаунт заблокирован !'));
-			return Redirect::to(URL::previous());
+			Session::flash('alert', array('yellow', 'Аккаунт заблокирован !'));
+			return Redirect::back();
 		}
 		else
 		{
-			Session::put('alert', array('red', 'Не правильно ведено имя пользователя и/или пароль !'));
-			return Redirect::to(URL::previous());
+			Session::flash('alert', array('red', 'Не правильно ведено имя пользователя и/или пароль !'));
+			return Redirect::back();
 		}*/
 		
 		if($auth === true && $auth_user->hasRole('admin') === true)
@@ -98,8 +98,8 @@ class AuthController extends Controller {
 		}
 		else
 		{
-			Session::put('alert', array('yellow', 'Не правильно ведено имя пользователя и/или пароль или аккаунт заблокирован !'));
-			return Redirect::to(URL::previous());
+			Session::flash('alert', array('yellow', 'Не правильно ведено имя пользователя и/или пароль или аккаунт заблокирован !'));
+			return Redirect::back();
 		}
 	}
 	

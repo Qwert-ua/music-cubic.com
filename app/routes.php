@@ -16,8 +16,11 @@ Route::pattern('role', '[0-9]+');
 
 Route::group(array('before' => 'ajax', 'prefix' => 'ajax'), function()
 {
-	Route::post('notify', 'AjaxController@action_notify');
 	Route::post('selectcity', 'AjaxController@action_selectcity');
+	Route::post('uploadphoto/{id}', 'AjaxController@action_uploadimages');
+	Route::post('getgallery', 'AjaxController@action_getgallery');
+	Route::post('imgdel', 'AjaxController@action_imgdel');
+	Route::post('images_sort', 'AjaxController@action_imagessort');
 });
 
 Route::get('admin/auth', 'AuthController@action_admin_index');
@@ -70,10 +73,10 @@ Route::group(array('before' => 'auth.user'), function()
     Route::post('audio', array('before' => 'csrf', 'uses' => 'AudioController@action_upload'));
     
     Route::get('photo', 'PhotoController@action_index');
-    Route::get('photo/album', 'PhotoController@action_create');
-    Route::post('photo/save', 'PhotoController@action_save');
-    Route::post('photo/upload', 'PhotoController@action_upload');
-    
+    Route::get('photo/album/{id?}', 'PhotoController@action_album');
+    Route::post('photo/save/{id?}', array('before' => 'csrf', 'uses' => 'PhotoController@action_save'));
+    Route::get('photo/editalbum/{id}', 'PhotoController@action_edit_album');
+    Route::get('photo/delalbum/{id}', 'PhotoController@action_delete_album');
 });
 
 

@@ -5,13 +5,19 @@ $(document).on('change', '.btn-file :file', function() {
 	input.trigger('fileselect', [numFiles, label]);
 });
 
-$(document).ready(function(){ 
+$(document).ready(function(){
 	
 	$.ajaxSetup({
         headers: {
             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
         }
     });
+    
+    $('.thumbnail-look').hover(function(){
+    	$(this).find('.look').fadeIn(100);
+    },function(){
+    	$(this).find('.look').fadeOut(100);
+  	});
     
     $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
         
@@ -26,44 +32,7 @@ $(document).ready(function(){
         
     });
 	
-	$.ajax({
-    	type: 'post',
-		url: '/ajax/notify',
-		async: false,
-		cache: false,
-		dataType: 'json',
-		success: function(data) {
-		
-			if(data) 
-			{
-				if(data.alert_valid)
-				{
-					var validation_error_text = '';
-					
-					$.each(data.alert_valid, function (index, value) {
-						 validation_error_text = validation_error_text + value + '<br />';
-					});
-					
-					new jBox('Notice', {
-						content: validation_error_text,
-						color: 'yellow',
-						autoClose: 5000
-					});
-				}
-				
-				if(data.alert)
-				{
-					new jBox('Notice', {
-						content: data.alert[1],
-						color: data.alert[0],
-						autoClose: 2000
-					});
-				}
-			}
-		}
-    });
-
-    $('[data-toggle="tooltip"]').tooltip();
+	$('[data-toggle="tooltip"]').tooltip();
 
     $('.datepicker_birthday').datepicker({
 		format: "yyyy-mm-dd",
@@ -111,6 +80,88 @@ $(document).ready(function(){
 	$(window).on("resize", function () {
     	$('.modal:visible').each(centerModal);
 	});
+	
+	$(".sort_images").sortable({ 
+		timeout: 500,
+	    placeholder: 'col-xs-2 col-md-3 placeholder',
+        scroll: false,
+        tolerance: 'intersect',
+        over: function(event, ui) {
+	        $(".placeholder").height($(".sortable-item").height() - 1);
+	    },
+	    update: function( event, ui ) {
+		
+			var sort = new Array();
+			
+			$(".sort_images div.sortable-item").each(function(i) {
+				sort[i] = $(this).attr('data-id');
+			});
+			
+			$.ajax({
+				type: 'post',
+				url: '/ajax/images_sort',
+				async: true,
+				cache: false,
+				data: { 'sort': sort },
+			});
+			
+		}
+	});
+    $( ".sort_images" ).disableSelection();
 });
+
+function ajax_gallery()
+{
+	$.ajax({
+    	type: 'post',
+		url: '/ajax/getgallery',
+		data: {'id':$('#images_list').attr('data-id')},
+		async: true,
+		cache: false,
+		success: function(data) {
+			$('#images_list').html(data);
+			
+			new jBox('Notice', {
+				content: 'Загрузка завершена',
+				color: 'green',
+				autoClose: 2000
+			});
+		}
+    });
+}
+
+function ajax_imgdel(album, img)
+{
+	$.ajax({
+		type: 'post',
+		url: '/ajax/imgdel',
+		async: true,
+		cache: false,
+		dataType: 'json',
+		data: { 'album':album, 'img':img },
+		success: function(data) {
+			
+			$.ajax({
+		    	type: 'post',
+				url: '/ajax/getgallery',
+				data: {'id':album},
+				async: true,
+				cache: false,
+				success: function(data) {
+					$('#images_list').html(data);
+				}
+		    });
+			
+			new jBox('Notice', {
+				content: data.status.text,
+				color: data.status.color,
+				autoClose: 1000
+			});
+			
+		}
+	});
+	
+	
+}
 
 

@@ -63,13 +63,13 @@ class Audio extends Eloquent {
 			$audio->file = self::upload_file($track_slug, $dir);
 			$audio->save();
 			
-			Session::put('alert', array('green', 'Ok'));
+			Session::flash('alert', array('green', 'Ok'));
 			
 			return $audio;
 		}
 		else
 		{
-			Session::put('alert_valid', self::isValid($id, $data)->toArray());
+			Session::flash('alert_valid', self::isValid($id, $data)->toArray());
 			//Session::flash('post', $data); Input::flashOnly('username', 'email'); Input::old('username');
 			
 			return false;
@@ -83,7 +83,7 @@ class Audio extends Eloquent {
 			$user = Audio::find($id);
 			$user->delete();
 			
-			Session::put('alert', array('green', 'Удалено'));
+			Session::flash('alert', array('green', 'Удалено'));
 		}
 	}
 	
@@ -130,7 +130,7 @@ class Audio extends Eloquent {
 		}
 		else
 		{
-			Session::put('alert_valid', $validation->messages()->toArray());
+			Session::flash('alert_valid', $validation->messages()->toArray());
 			return false;
 		}
 	}
@@ -155,7 +155,7 @@ class Audio extends Eloquent {
 		}
 		else
 		{
-			Session::put('alert_valid', $validation->messages()->toArray());
+			Session::flash('alert_valid', $validation->messages()->toArray());
 			return false;
 		}
 	}

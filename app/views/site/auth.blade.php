@@ -14,7 +14,7 @@
 			{{ Form::open(array('url' => '/auth/login')) }}
 			
 				<div class="form-group">
-					{{ Form::text('email', NULL, array('class' => 'form-control', 'placeholder' => 'E-mail')) }}
+					{{ Form::email('email', NULL, array('class' => 'form-control', 'placeholder' => 'E-mail')) }}
 				</div>
 					
 				<div class="form-group">

@@ -153,13 +153,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				$user->roles()->attach(1);
 			}
 			
-			Session::put('alert', array('green', 'Ok'));
+			Session::flash('alert', array('green', 'Ok'));
 			
 			return $user;
 		}
 		else
 		{
-			Session::put('alert_valid', $validation->toArray());
+			Session::flash('alert_valid', $validation->toArray());
 			Session::flash('post', $data);
 			return false;
 		}	
@@ -194,13 +194,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$user->save();
 			$user->roles()->attach(1);
 
-			Session::put('alert', array('green', 'Ok'));
+			Session::flash('alert', array('green', 'Ok'));
 			
 			return $user;
 		}
 		else
 		{
-			Session::put('alert_valid', $validation->toArray());
+			Session::flash('alert_valid', $validation->toArray());
 			Session::flash('post', $data);
 			
 			return false;
@@ -248,7 +248,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 		else
 		{
-			Session::put('alert_valid', $validation->messages()->toArray());
+			Session::flash('alert_valid', $validation->messages()->toArray());
 			return false;
 		}
 	}

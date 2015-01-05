@@ -32,21 +32,21 @@ class RegistrationController extends Controller {
 			
 			if(count(Mail::failures()) > 0)
 			{
-				Session::put('alert', array('red', 'Не удалось отправить на e-mail код активации обратитесь к администратору сайта'));
+				Session::flash('alert', array('red', 'Не удалось отправить на e-mail код активации обратитесь к администратору сайта'));
 			}
 		}
 		else
 		{
-			Session::put('alert', array('red', 'Регистрация не удалась, попробуйте позже'));
+			Session::flash('alert', array('red', 'Регистрация не удалась, попробуйте позже'));
 		}
 		
-		return Redirect::to(URL::previous());
+		return Redirect::back();
 	}
 	
 	public function action_activation($activation = null)
 	{
 		User::activation($activation);
-		Session::put('alert', array('green', 'Ваш аккаунт активирован, введите имя пользователя и пароль что бы войти'));
+		Session::flash('alert', array('green', 'Ваш аккаунт активирован, введите имя пользователя и пароль что бы войти'));
 		return Redirect::to('/');
 	}
 }
