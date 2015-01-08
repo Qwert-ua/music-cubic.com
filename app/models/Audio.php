@@ -4,6 +4,11 @@ class Audio extends Eloquent {
 
 	protected $table = 'audio';
 	
+	public function artists()
+	{
+    	return $this->belongsTo('Artist', 'artist');
+  	}
+	
 	public static function isValid($id, $data)
     {
 	    $validator = Validator::make($data, [

@@ -17,7 +17,7 @@ class AudioController extends Controller {
 			'artists' => Artist::all()
 		);
 		
-		return View::make('site.audio_uploads', $data);
+		return View::make('site.audio_form', $data);
 	}
 
 	public function action_upload($id = 0)

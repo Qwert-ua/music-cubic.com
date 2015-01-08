@@ -9,7 +9,7 @@
 	<div class="col-md-9">
 		
 		<blockquote>
-			<p>{{ trans('trans.title.upload_music') }}</p>
+			<p>{{ trans('trans.title.add_music') }}</p>
 		</blockquote>
 
 		{{ Form::open([ 'url' => 'audio', 'files' => 'true' ]) }}
@@ -18,23 +18,30 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>{{ trans('trans.form.author') }}</label>
-						{{ Form::select('artist', array('0' => trans('trans.form.sel_artist')) + $artists->lists('name', 'id'), NULL, array('class' => 'form-control select_artist')) }}
+						{{ Form::artist(null, array('class' => 'form-control select_artist', 'data-live-search' => 'true')) }}
 					</div>
 				</div>
 
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>{{ trans('trans.form.name_track') }}</label>
-						{{ Form::text('track', null, array('class' => 'form-control hide_select', 'disabled' => 'disabled')) }}
+						{{ Form::text('track', null, array('class' => 'form-control hide_select hide', 'disabled' => 'disabled')) }}
+						
+						{{ Form::track(null,  array('class' => 'form-control', 'data-live-search' => 'true')) }}
 					</div>
 				</div>
 			</div>
+			
+			<button type="button" class="btn btn-success btn-block">{{ trans('trans.btn.add') }}</button>
+			
+			<hr />
 
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>{{ trans('trans.form.album') }}</label>
-						{{ Form::text('album', null, array('class' => 'form-control hide_select', 'disabled' => 'disabled')) }}
+						{{ Form::album(null,  array('class' => 'form-control', 'data-live-search' => 'true')) }}
+						{{ Form::text('album', null, array('class' => 'form-control hide_select hide', 'disabled' => 'disabled')) }}
 					</div>
 				</div>
 
@@ -74,7 +81,13 @@
 			
 			<br />
 
-			<button type="submit" class="btn btn-success hide_select btn-block" disabled>{{ trans('trans.btn.upload') }} </button>
+			<button type="submit" class="btn btn-success hide_select btn-block">{{ trans('trans.btn.upload') }}</button>
+			
+			<hr />
+			
+			<a href="/artist/new" class="btn btn-success btn-block">{{ trans('trans.btn.createuser') }}</a>
+			
+			
 
 		{{ Form::close() }}
 
