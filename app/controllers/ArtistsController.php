@@ -4,7 +4,30 @@ class ArtistsController extends Controller {
 
 	public function action_index()
 	{
-		return View::make('site.index');
+		$data = array(
+			'artists' => Artist::all()
+		);
+		
+		return View::make('site.artist_list', $data);
+	}
+	
+	public function action_form()
+	{
+		$genre = Config::get('myconfig.genre');
+		natsort($genre);
+		
+		$data = array(
+			'genre' => $genre,
+			'country' => Country::orderBy('name')->get()
+		);
+		
+		return View::make('site.artist_form', $data);
+	}
+	
+	public function action_save()
+	{
+		Artist::save_data(0);
+		return Redirect::to('artist');
 	}
 	
 	// =========================== Admin =========================== //
