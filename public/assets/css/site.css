@@ -188,3 +188,8 @@ input[readonly] {
 .sortable-item:first-child a {
 	/*border-color: #2a6496;*/
 }
+
+.entry1, .entry2
+{
+    margin-top: 10px;
+}

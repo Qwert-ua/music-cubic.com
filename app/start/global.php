@@ -80,3 +80,90 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|--------------------------------------------------------------------------
+| Custom Form
+|--------------------------------------------------------------------------
+*/
+
+Form::macro('artist', function($value = null, $attr = array())
+{
+	$out = '<select name="artist" ';
+	
+	foreach($attr as $k_attr=>$v_attr)
+	{
+		$out .= $k_attr . '="' . $v_attr . '"';
+	}
+	
+	$out .= '>';
+	
+	$out .= '<option';
+	if(empty($value)) $out .= ' selected="selected"';
+	$out .= 'style="display:none;">' . trans('trans.form.sel_option') . '</option>';
+	
+	foreach(Artist::orderBy('name')->get() as $val)
+	{
+		$out .= '<option value="' . $val->id . '"';
+		if($value == $val->id) $out .= ' selected="selected"';
+		$out .= '>' . $val->name . '</option>';
+	}
+			
+	$out .= '</select>';
+	
+	return $out;
+});
+
+Form::macro('track', function($value = null, $attr = array())
+{
+	$out = '<select name="track" ';
+	
+	foreach($attr as $k_attr=>$v_attr)
+	{
+		$out .= $k_attr . '="' . $v_attr . '"';
+	}
+	
+	$out .= '>';
+	
+	$out .= '<option';
+	if(empty($value)) $out .= ' selected="selected"';
+	$out .= ' style="display:none;">' . trans('trans.form.sel_option') . '</option>';
+	
+	foreach(Audio::orderBy('album')->orderBy('track')->get() as $val)
+	{
+		$out .= '<option value="' . $val->id . '"';
+		if($value == $val->id) $out .= ' selected="selected"';
+		$out .= ' data-subtext="' . $val->album . '">' . $val->track . '</option>';
+	}
+			
+	$out .= '</select>';
+	
+	return $out;
+});
+
+Form::macro('album', function($value = null, $attr = array())
+{
+	$out = '<select name="album" ';
+	
+	foreach($attr as $k_attr=>$v_attr)
+	{
+		$out .= $k_attr . '="' . $v_attr . '"';
+	}
+	
+	$out .= '>';
+	
+	$out .= '<option';
+	if(empty($value)) $out .= ' selected="selected"';
+	$out .= ' style="display:none;">' . trans('trans.form.sel_option') . '</option>';
+	
+	foreach(Audio::where('album', '!=', '')->orderBy('album')->get() as $val)
+	{
+		$out .= '<option value="' . $val->id . '"';
+		if($value == $val->id) $out .= ' selected="selected"';
+		$out .= '>' . $val->album . '</option>';
+	}
+			
+	$out .= '</select>';
+	
+	return $out;
+});

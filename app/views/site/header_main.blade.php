@@ -22,10 +22,9 @@
 			</ul>
     
 			<ul class="nav navbar-nav navbar-right">
+        		<li><a href="/artist" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.artist')}}"><span class="fa fa-star"></span></a></li>
         		<li><a href="/audio" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.music')}}"><span class="fa fa-music"></span></a></li>
-        		<li><a href="/audio/upload" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.upload_music')}}"><span class="fa fa-download"></span></a></li>
-				<li><a href="/edit" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.pers_info')}}"><span class="glyphicon glyphicon-user"></span></a></li>
-				<li><a href="/photo" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.photo')}}"><span class="fa fa-picture-o"></span></a></li>
+        		<li><a href="/photo" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.photo')}}"><span class="fa fa-picture-o"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-volume-up"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-random"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-list-alt"></span></a></li>

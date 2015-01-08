@@ -7,6 +7,10 @@ $(document).on('change', '.btn-file :file', function() {
 
 $(document).ready(function(){
 	
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+    	//$('select').selectpicker('mobile');
+	}
+	
 	$.ajaxSetup({
         headers: {
             'X-CSRF-Token': $('meta[name="_token"]').attr('content')
@@ -48,7 +52,7 @@ $(document).ready(function(){
 	});
 	
 	$('select').selectpicker({
-		size: 10
+		size: 10,
 	});
 	
 	$('select.select_artist').on('change', function(){
@@ -108,7 +112,84 @@ $(document).ready(function(){
 		}
 	});
     $( ".sort_images" ).disableSelection();
+    
+    SelectCity();
+	
+	$('#country').change(function() {
+		$('#city').find('option').remove();
+		$('#city_id').val('0')
+		SelectCity();		
+	});
 });
+
+function SelectCity() {
+	
+	var country_id = $('#country').val();
+	if(!country_id || country_id == 0) return false;
+	
+	$.ajax({
+		url: "/ajax/selectcity",
+		type: "POST",
+		async: true,
+		data: { country_id: $('#country').val()},
+		cache: false
+	}).done(function(result) {
+		
+		var data = JSON.parse(result);
+		
+		//$('#city').append('<option value="0">-</option>');
+		
+		$.each(data, function (index, value) {
+			$('#city').append('<option value="' + value.id + '">' + value.name + '</option>');
+		});
+		
+		$('#city').removeAttr('disabled');
+		$('#city').selectpicker('refresh');
+		$('#city').selectpicker('val', $('#city_id').val());
+	});
+	
+	$(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+
+		var controlForm = $('.controls1'),
+            currentEntry = $(this).parents('.entry1:first'),
+            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry1:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+    }).on('click', '.btn-remove', function(e)
+    {
+		$(this).parents('.entry1:first').remove();
+
+		e.preventDefault();
+		return false;
+	});
+	
+	$(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+
+		var controlForm = $('.controls2'),
+            currentEntry = $(this).parents('.entry2:first'),
+            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry2:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+    }).on('click', '.btn-remove', function(e)
+    {
+		$(this).parents('.entry2:first').remove();
+
+		e.preventDefault();
+		return false;
+	});
+}
 
 function ajax_gallery()
 {
