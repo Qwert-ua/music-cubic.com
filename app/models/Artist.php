@@ -4,6 +4,11 @@ class Artist extends Eloquent {
 
 	protected $table = 'artists';
 	
+	public function audio()
+	{
+    	return $this->hasMany('Audio');
+  	}
+	
 	public static function isValid($id, $data)
     {
 	    $rule = array();
@@ -36,6 +41,7 @@ class Artist extends Eloquent {
     public static function save_data($id)
 	{
 		$data = Input::all();
+		$user = Auth::user();
 		
 		if(self::isValid($id, $data) === true)
 		{		
@@ -49,7 +55,7 @@ class Artist extends Eloquent {
 			}
 			
 			$artist->name = array_get($data, 'name');
-			$artist->admins = serialize(array_filter(array_get($data, 'admins'), 'strlen'));
+			$artist->admins = serialize(array_filter(array_get($data, 'admins', array($user->id)), 'strlen'));
 			$artist->group_created = array_get($data, 'group_created');
 			$artist->group_closed = array_get($data, 'group_closed');
 			$artist->genre = serialize(array_filter(array_get($data, 'genre'), 'strlen'));
@@ -84,5 +90,10 @@ class Artist extends Eloquent {
 			
 			Session::flash('alert', array('green', 'Артист удален'));
 		}
+	}
+	
+	public static function get_name($id)
+	{
+		return Artist::find($id)->name;
 	}
 }
