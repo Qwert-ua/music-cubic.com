@@ -2,7 +2,16 @@
 
 class ArtistsController extends Controller {
 
-	public function action_index()
+	public function action_index($name)
+	{
+		$data = array(
+			'artist' => Artist::find(Artist::get_id($name))
+		);
+		
+		return View::make('site.artist', $data);
+	}
+	
+	public function action_list()
 	{
 		$data = array(
 			'artists' => Artist::all()
@@ -24,10 +33,10 @@ class ArtistsController extends Controller {
 		return View::make('site.artist_form', $data);
 	}
 	
-	public function action_save()
+	public function action_save($id = 0)
 	{
-		Artist::save_data(0);
-		return Redirect::to('artist');
+		Artist::save_data($id);
+		return Redirect::back();
 	}
 	
 	// =========================== Admin =========================== //

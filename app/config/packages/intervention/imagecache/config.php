@@ -32,6 +32,7 @@ return array(
     
     'paths' => array(
         public_path('uploads/users'),
+        public_path('uploads'),
         public_path('images')
     ),
 

@@ -71,11 +71,18 @@ class Photo extends Eloquent {
 		}
 	}
 	
-	public static function get_album($id = 0)
+	public static function get_album($id, $username = false)
 	{
-		$user = Auth::user();
+		if(!empty($username))
+		{
+			$user = User::where('username', '=', $username)->first();
+		}
+		else
+		{
+			$user = Auth::user();
+		}
 		
-		if($id > 0)
+		if(!empty($user) && $id > 0)
 		{
 			return Photo::where('user_id', '=', $user->id)->where('id', '=', $id)->first();
 		}

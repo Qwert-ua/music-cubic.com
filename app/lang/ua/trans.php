@@ -2,6 +2,7 @@
 	
 return array(
 	'form' => array(
+		'name' => 'Назва',
 		'username' => 'Ім\'я користувача',
 		'first_name' => 'Ім\'я',
 		'last_name' => 'Прізвище',
@@ -34,6 +35,7 @@ return array(
 	'btn' => array(
 		'save'	=> 'Зберегти',
 		'delete' => 'Видалити',
+		'close'	=> 'Закрити',
 		'login'	=> 'Увійти',
 		'register' => 'Реєстрація',
 		'update_pers_info' => 'Оновити інформацію',
@@ -43,7 +45,8 @@ return array(
 		'browse' => 'Вибрати',
 		'createuser' => 'Створити виконавця',
 		'add_track' => 'Додати аудіо трек',
-		'add' => 'Додати'
+		'add' => 'Додати',
+		'new_playlist' => 'Створити плейлист'
 	),
 	
 	'menu' => array(
@@ -63,10 +66,16 @@ return array(
 		'list_music' => 'Музика',
 		'photogallery' => 'Фотоальбом',
 		'artist' => 'Виконавець',
+		'about_artist' => 'Про виконавця',
+		'my_afisha' => 'Моя афіша',
+		'create_playlist' => 'Створити плейлист'
 	),
 	
 	'artist' => 'Виконавець',
 	'name' => 'Ім\'я',
 	'album' => 'Альбом',
-	'track' => 'Назва треку'
+	'track' => 'Назва треку',
+	'playlist' => 'Плейлист',
+	'genre' => 'Жанри',
+	'edit' => 'Редагувати'
 );

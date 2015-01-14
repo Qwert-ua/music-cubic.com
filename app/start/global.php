@@ -167,3 +167,33 @@ Form::macro('album', function($value = null, $attr = array())
 	
 	return $out;
 });
+
+Form::macro('selectYearRange', function($name, $value = null, $attr = array())
+{
+	$out = '<select name="' . $name . '" ';
+	
+	foreach($attr as $k_attr=>$v_attr)
+	{
+		$out .= $k_attr . '="' . $v_attr . '"';
+	}
+	
+	$out .= '>';
+	
+	$out .= '<option';
+	if(empty($value)) $out .= ' selected="selected"';
+	$out .= ' style="display:none;">' . trans('trans.form.sel_option') . '</option>';
+	
+	for($i = date('Y'); $i >= 1900; $i--)
+	{
+		$out .= '<option value="' . $i. '"';
+		if($value == $i) $out .= ' selected="selected"';
+		$out .= '>' . $i . '</option>';
+	}
+			
+	$out .= '</select>';
+	
+	return $out;
+});
+
+
+
