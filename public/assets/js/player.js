@@ -45,11 +45,6 @@ var HBPlayer = function(selector, options) {
     this.spriteRatio = 0.24; // Number of steps / 100
 
     this.player = $(selector);
-    //this.media = $.extend({}, media);
-
-
-    /*this.cssTransforms = true;//Modernizr.csstransforms;
-    this.audio = {};*/
     this.dragging = false; // Indicates if the progressbar is being 'dragged'.
 
     this.eventNamespace = ".CirclePlayer"; // So the events can easily be removed in destroy.
@@ -57,11 +52,6 @@ var HBPlayer = function(selector, options) {
 
     this.$volumeMD = false;
     this.$progressMD = false;
-
-    /*this.jq = {};
-    $.each(cssSelector, function(entity, cssSel) {
-        self.jq[entity] = $(self.options.cssSelectorAncestor + " " + cssSel);
-    });*/
 
     this._initSolution();
     this._initPlayer();
