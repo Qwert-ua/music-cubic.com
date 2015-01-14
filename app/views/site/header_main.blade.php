@@ -20,7 +20,7 @@
 					</div>
 				</form>
 			</ul>
-    
+            @include('site/blocks/header_player')
 			<ul class="nav navbar-nav navbar-right">
         		<li><a href="/artist" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.artist')}}"><span class="fa fa-star"></span></a></li>
         		<li><a href="/audio" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.music')}}"><span class="fa fa-music"></span></a></li>
@@ -36,6 +36,3 @@
 	</div>
 </div>
 
-<div class="top-player">
-	Player
-</div>
