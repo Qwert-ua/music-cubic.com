@@ -4,6 +4,7 @@ class AuthController extends Controller {
 
 	public function action_index()
 	{
+
 		if(Auth::check())
 		{
 			return Redirect::to('/');

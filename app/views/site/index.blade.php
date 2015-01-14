@@ -47,7 +47,20 @@
 		<script src="/assets/ajax-file-upload-form/js/script.js"></script>
 		<script src="/assets/lightbox/js/lightbox.min.js"></script>
 		<script src="/assets/js/site.js"></script>
-	</body>
+        <script src="/assets/js/jquery.grab.js"></script>
+        <script src="/assets/js/jquery.jplayer.min.js"></script>
+        <script src="/assets/js/player.js"></script>
+        <script type="text/template" id="list_item_template">
+            <li class="list-group-item tpd-list-item">
+                <div class="pull-left tpd-list-item-index"><i class="fa fa-align-left fa-rotate-270"></i><span>+index+.</span></div>
+                <div class="pull-left tpd-list-item-name" data-index="+id+"><span>+author+</span> - +name+ (+duration+)</div>
+                <div class="pull-right tpd-song-bullhorn" data-toggle="tooltip" data-placement="top" title="14"></div>
+                <div class="pull-right tpd-song-likes"></div>
+                <div class="clearfix"></div>
+            </li>
+        </script>
+
+    </body>
 </html>
 
 @include('notify')
