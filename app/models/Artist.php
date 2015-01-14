@@ -13,10 +13,8 @@ class Artist extends Eloquent {
     {
 	    $rule = array();
 	     
-	    $rule['name'] = 'required|min:6|max:32|unique:artists,name,' . $id;
-	    //$rule['admins'] = 'required';
+	    $rule['name'] = 'required|max:128|unique:artists,name,' . $id;
 	    $rule['group_created'] = 'required';
-	    //$rule['group_closed'] = 'required';
 	    $rule['genre'] = 'required';
 	    $rule['country'] = 'required';
 	    $rule['city'] = 'required';
@@ -52,6 +50,10 @@ class Artist extends Eloquent {
 			else
 			{
 				$artist = new Artist;
+				
+				$login = Translit::slug(trim(array_get($data, 'name')));
+				self::makeDirectory($login);
+				$artist->login = $login;
 			}
 			
 			$artist->name = array_get($data, 'name');
@@ -68,7 +70,7 @@ class Artist extends Eloquent {
 			$artist->links = serialize(array_filter(array_get($data, 'links'), 'strlen'));
 			$artist->save();
 			
-			Session::flash('alert', array('green', 'Ok'));
+			Session::flash('alert', array('green', 'Save'));
 			
 			return $artist;
 		}
@@ -81,19 +83,49 @@ class Artist extends Eloquent {
 		}	
 	}
 	
+	public static function makeDirectory($login)
+	{
+		$dir = './uploads/artists/' . $login . '/';
+		
+		if(!is_dir($dir))
+		{
+			mkdir($dir, 0777);
+		}
+		
+		if(!is_dir($dir . 'audio'))
+		{
+			mkdir($dir . 'audio', 0777);
+		}
+		
+		if(!is_dir($dir . 'photo'))
+		{
+			mkdir($dir . 'photo', 0777);
+		}
+		
+		if(!is_dir($dir . 'video'))
+		{
+			mkdir($dir . 'video', 0777);
+		}
+	}
+	
 	public static function destroy_data($id)
 	{
 		if(!empty($id))
 		{
-			$user = Artist::find($id);
-			$user->delete();
+			//$user = Artist::find($id);
+			//$user->delete();
 			
-			Session::flash('alert', array('green', 'Артист удален'));
+			//Session::flash('alert', array('green', 'Артист удален'));
 		}
 	}
 	
 	public static function get_name($id)
 	{
 		return Artist::find($id)->name;
+	}
+	
+	public static function get_id($name)
+	{
+		return Artist::where('login', '=', $name)->first()->id;
 	}
 }

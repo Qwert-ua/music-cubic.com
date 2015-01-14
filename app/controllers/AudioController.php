@@ -4,8 +4,12 @@ class AudioController extends Controller {
 
 	public function action_index()
 	{
+		$user = Auth::user();
+		
 		$data = array(
-			'audio' => Audio::all()
+			'audio' => Audio::all(),
+			'artist' => Audio::all(),
+			'palylist' => Playlist::where('user', '=', $user->id)->get()
 		);
 		
 		return View::make('site.audio_list', $data);
@@ -24,6 +28,12 @@ class AudioController extends Controller {
 	{
 		Audio::save_data($id);
 		
+		return Redirect::back();
+	}
+	
+	public function action_createplaylist()
+	{
+		Playlist::save_data(0);
 		return Redirect::back();
 	}
 	

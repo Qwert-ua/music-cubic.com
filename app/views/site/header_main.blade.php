@@ -20,11 +20,13 @@
 					</div>
 				</form>
 			</ul>
-    
+			
+			@include('site/blocks/header_player')
+			
 			<ul class="nav navbar-nav navbar-right">
         		<li><a href="/artist" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.artist')}}"><span class="fa fa-star"></span></a></li>
-        		<li><a href="/audio" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.music')}}"><span class="fa fa-music"></span></a></li>
-        		<li><a href="/photo" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.photo')}}"><span class="fa fa-picture-o"></span></a></li>
+        		<li><a href="/{{ $user->username }}/audio" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.music')}}"><span class="fa fa-music"></span></a></li>
+        		<li><a href="/{{ $user->username }}/photo" data-toggle="tooltip" data-placement="bottom" title="{{trans('trans.menu.photo')}}"><span class="fa fa-picture-o"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-volume-up"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-random"></span></a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"><span class="glyphicon glyphicon-list-alt"></span></a></li>
@@ -34,8 +36,4 @@
 			</ul>
 		</div><!--/.nav-collapse -->
 	</div>
-</div>
-
-<div class="top-player">
-	Player
 </div>

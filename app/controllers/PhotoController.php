@@ -2,10 +2,10 @@
 
 class PhotoController extends Controller {
 
-	public function action_index()
+	public function action_index($username)
 	{
 		$data = array(
-			'albums' => Photo::get_album()
+			'albums' => Photo::get_album($username)
 		);
 		
 		return View::make('site.photo', $data);
@@ -50,7 +50,7 @@ class PhotoController extends Controller {
 	public function action_delete_album($id)
 	{
 		Photo::destroy_data($id);
-		return Redirect::to('photo');
+		return Redirect::to(Auth::user()->username . '/photo');
 	}
 	
 	// =========================== Admin =========================== //

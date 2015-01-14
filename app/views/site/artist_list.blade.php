@@ -1,41 +1,52 @@
 @extends('site.index')
 
-@section('title_user')
-	{{ View::make('site.blocks.title_user', array('user' => Auth::user())) }}
-@stop		
-	
 @section('content')
-	<div class="col-md-9">
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			{{ View::make('site.blocks.title_user', array('user' => Auth::user())) }}
+		</div>
 		
-		<blockquote>
-			<p>{{ trans('trans.title.artist') }}</p>
-		</blockquote>
-
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>{{ trans('trans.name') }}</th>
-					<th>&nbsp;</th>
-				</tr>
-			</thead>
-
-			@foreach($artists as $v_artist)
-				<tbody>
+		<div class="col-md-9">
+			
+			<blockquote>
+				<p>{{ trans('trans.title.artist') }}</p>
+			</blockquote>
+			
+			<a href="/artist/new" class="btn btn-default pull-right">Create new Artist</a>
+	
+			<table class="table table-hover">
+				<thead>
 					<tr>
-						<td>{{ $v_artist->name }}</td>
-						<td class="text-right">
-						
-							<a href="/artist/{{ $v_artist->id }}"><i class="fa fa-eye"></i></a>
-							
-							&nbsp;&nbsp;
-							
-							<a href="/artist/edit/{{ $v_artist->id }}"><i class="fa fa-pencil text-success"></i></a>
-							
-						</td>
+						<th>{{ trans('trans.name') }}</th>
+						<th>&nbsp;</th>
 					</tr>
+				</thead>
+				<tbody>
+					@foreach($artists as $v_artist)
+						<tr>
+							<td>{{ $v_artist->name }}</td>
+							<td class="text-right">
+							
+								<a href="/artist/{{ Translit::slug($v_artist->name) }}"><i class="fa fa-eye"></i></a>
+								
+								&nbsp;&nbsp;
+								
+								<a href="/artist/edit/{{ $v_artist->id }}"><i class="fa fa-pencil text-success"></i></a>
+								
+								&nbsp;&nbsp;
+								
+								<a href="/artist/delete/{{ $v_artist->id }}"><i class="fa fa-trash text-danger"></i></a>
+								
+							</td>
+						</tr>
+					@endforeach
 				</tbody>
-			@endforeach
-		</table>
-
+			</table>
+	
+		</div>
 	</div>
+</div>
+
 @stop

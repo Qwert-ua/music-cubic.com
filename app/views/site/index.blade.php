@@ -3,11 +3,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="_token" content="{{ csrf_token() }}" />
 		<title>Music Kubik</title>
 
 		<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/assets/bootstrap/css/non-responsive.css" rel="stylesheet">
 		<link href="/assets/jBox/jBox.css" rel="stylesheet">
 		<link href="/assets/eternicode-bootstrap-datepicker/css/datepicker3.css" rel="stylesheet">
 		<link href="/assets/bootstrap-select-master/css/bootstrap-select.min.css" rel="stylesheet">
@@ -25,47 +25,14 @@
 	
 		@if(Auth::check())
 			@if(Auth::user()->hasRole('login') === true && Auth::user()->hasActive() === true) 
-				{{ View::make('site.header_main') }}
+				{{ View::make('site.header_main', array('user' => Auth::user())) }}
 			@endif
 		@else
 			{{ View::make('site.header') }}
 		@endif
 	    
-		<div class="container">
-	    	<div class="row row-fluid col-md">
-	    		@yield('title_user')
-				@yield('content')
-	    	</div>
-		</div>
+		@yield('content')
 		
-		<!-- Modal Content -->
-
-		<div class="modal fade" id="UploadUserIcon">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					{{ Form::open(array('url' => 'uploadicon', 'files' => 'true')) }}
-					
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
-						<span class="sr-only">Close</span></button>
-						<h4 class="modal-title">Загрузка аватарки</h4>
-					</div>
-					<div class="modal-body">
-						
-						{{ Form::file('image') }}
-						
-					</div>
-					<div class="modal-footer">
-		        		<button type="button" class="btn btn-default" data-dismiss="modal">Не хочу</button>
-						<button type="submit" class="btn btn-primary">Загрузить</button>
-					</div>
-					
-					{{ Form::close() }}
-					
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-	
 		<script src="/assets/js/jquery-1.11.1.min.js"></script>
 		<script src="/assets/jquery-ui-1.11.2/jquery-ui.js"></script>
 		<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
@@ -80,6 +47,19 @@
 		<script src="/assets/ajax-file-upload-form/js/script.js"></script>
 		<script src="/assets/lightbox/js/lightbox.min.js"></script>
 		<script src="/assets/js/site.js"></script>
+		
+		<script src="/assets/js/jquery.grab.js"></script>
+        <script src="/assets/js/jquery.jplayer.min.js"></script>
+        <script src="/assets/js/player.js"></script>
+        <script type="text/template" id="list_item_template">
+            <li class="list-group-item tpd-list-item">
+                <div class="pull-left tpd-list-item-index"><i class="fa fa-align-left fa-rotate-270"></i><span>+index+.</span></div>
+                <div class="pull-left tpd-list-item-name" data-index="+id+"><span>+author+</span> - +name+ (+duration+)</div>
+                <div class="pull-right tpd-song-bullhorn" data-toggle="tooltip" data-placement="top" title="14"></div>
+                <div class="pull-right tpd-song-likes"></div>
+                <div class="clearfix"></div>
+            </li>
+        </script>
 	</body>
 </html>
 
