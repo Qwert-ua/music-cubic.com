@@ -68,11 +68,6 @@ Route::group(array('before' => 'auth.user'), function()
 	Route::get('edit', 'UsersController@action_edit');
 	Route::post('edit', array('before' => 'csrf', 'uses' => 'UsersController@action_save'));
 
-    Route::get('{username}/audio', 'AudioController@action_index');
-    Route::get('audio/add', 'AudioController@action_form');
-    Route::post('audio', array('before' => 'csrf', 'uses' => 'AudioController@action_upload'));
-    Route::post('audio/create-playlist', array('before' => 'csrf', 'uses' => 'AudioController@action_createplaylist'));
-    
     Route::get('{username}/photo', 'PhotoController@action_index');
     Route::get('photo/album/{id?}', 'PhotoController@action_album');
     Route::post('photo/save/{id?}', array('before' => 'csrf', 'uses' => 'PhotoController@action_save'));
@@ -83,6 +78,14 @@ Route::group(array('before' => 'auth.user'), function()
     Route::get('artist/new', 'ArtistsController@action_form');
     Route::post('artist/save/{id?}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_save'));
     Route::get('artist/{artist}', 'ArtistsController@action_index');
+    
+    Route::get('{username}/audio', 'AudioController@action_index');
+    Route::get('audio/add', 'AudioController@action_form');
+    Route::post('audio', array('before' => 'csrf', 'uses' => 'AudioController@action_upload'));
+    Route::post('audio/create-playlist', array('before' => 'csrf', 'uses' => 'AudioController@action_createplaylist'));
+	
+    
+    
 });
 
 

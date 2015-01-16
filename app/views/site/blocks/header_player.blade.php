@@ -54,7 +54,7 @@
                         </div>
                         <div class="player-volume-wrapper">
                             <div class="player-volume"><i class="fa fa-volume-up"></i></div>
-                            <span class="player-volume-level"></span>
+                            <div class="player-volume-level"></div>
                         </div>
                         <div class="tph-controls-right">
                             <span class="player-song-comments-wrapper"><i class="fa fa-comments"></i><span class="player-song-comments">15</span></span>

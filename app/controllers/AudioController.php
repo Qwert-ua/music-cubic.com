@@ -2,13 +2,15 @@
 
 class AudioController extends Controller {
 
-	public function action_index()
+	public function action_index($id)
 	{
 		$user = Auth::user();
 		
 		$data = array(
 			'audio' => Audio::all(),
+			'album' => Album::all(),
 			'artist' => Audio::all(),
+			'genre' => Genre::limit(20)->get(),
 			'palylist' => Playlist::where('user', '=', $user->id)->get()
 		);
 		

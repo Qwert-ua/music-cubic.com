@@ -75,9 +75,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($palylist as $v_palylist)
+							@foreach($artist as $v_artist)
 								<tr>
-									<td><a href="#">{{$v_palylist->name}}</a></td>
+									<td><a href="#">{{$v_artist->name}}</a></td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -90,9 +90,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($palylist as $v_palylist)
+							@foreach($album as $v_album)
 								<tr>
-									<td><a href="#">{{$v_palylist->name}}</a></td>
+									<td><a href="#">{{$v_album->name}}</a></td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -105,9 +105,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($palylist as $v_palylist)
+							@foreach($genre as $v_genre)
 								<tr>
-									<td><a href="#">{{$v_palylist->name}}</a></td>
+									<td><a href="#">{{$v_genre->name}}</a></td>
 								</tr>
 							@endforeach
 						</tbody>

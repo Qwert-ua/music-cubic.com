@@ -15,7 +15,92 @@
 	
 			{{ Form::open([ 'url' => 'audio', 'files' => 'true' ]) }}
 	
+				<label>Артист</label>
+	
 				<div class="row">
+					<div class="col-md-10">
+						{{ Form::artist(null, array('class' => 'form-control select_artist', 'data-live-search' => 'true')) }}
+					</div>
+					
+					<div class="col-md-2">
+						<a href="#" class="btn btn-default btn-block">Создать</a>
+					</div>
+				</div>
+				
+				<label>Трек</label>
+	
+				<div class="row">
+					<div class="col-md-10">
+						{{ Form::track(null,  array('class' => 'form-control', 'data-live-search' => 'true')) }}
+					</div>
+					
+					<div class="col-md-2">
+						<a href="#" class="btn btn-default btn-block">Загрузить</a>
+					</div>
+				</div>
+				
+				<label>Альбом</label>
+	
+				<div class="row">
+					<div class="col-md-10">
+						{{ Form::album(null,  array('class' => 'form-control', 'data-live-search' => 'true')) }}
+					</div>
+					
+					<div class="col-md-2">
+						<a href="#" class="btn btn-default btn-block">Создать</a>
+					</div>
+				</div>
+				
+				<label>Плейлист</label>
+	
+				<div class="row">
+					<div class="col-md-10">
+						{{ Form::album(null,  array('class' => 'form-control', 'data-live-search' => 'true')) }}
+					</div>
+					
+					<div class="col-md-2">
+						<a href="#" class="btn btn-default btn-block">Создать</a>
+					</div>
+				</div>
+	
+				<div class="row">
+					<div class="col-md-6">
+						<label>Год</label>
+						{{ Form::selectRange('release', date('Y'), 1900, null, array('class' => 'form-control')) }}
+					</div>
+					
+					<div class="col-md-6">
+						<label>{{ trans('trans.form.cover') }} <small class="text-muted">(JPG, GIF, PNG; 240x240 px)</small></label>
+						<div class="input-group">
+			                <span class="input-group-btn">
+			                    <span class="btn btn-primary btn-file">
+			                        {{ trans('trans.btn.browse') }}&hellip; <input type="file" name="audio">
+			                    </span>
+			                </span>
+			                <input type="text" class="form-control" readonly>
+			            </div>
+						
+					</div>
+				</div>
+				
+				<br />
+				
+				<button type="submit" class="btn btn-success btn-block hide_select">{{ trans('trans.btn.add') }}</button>
+				
+				<hr />
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+	
+				<div class="row hide">
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>{{ trans('trans.form.author') }}</label>
@@ -33,10 +118,6 @@
 					</div>
 				</div>
 				
-				<button type="submit" class="btn btn-success btn-block hide_select">{{ trans('trans.btn.add') }}</button>
-				
-				<hr />
-	
 				<div class="row hide">
 					<div class="col-md-6">
 						<div class="form-group">

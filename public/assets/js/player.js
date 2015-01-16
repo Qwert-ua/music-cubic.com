@@ -1,6 +1,6 @@
 var HBPlayer = function(selector, options) {
 
-    this.$volumeValue = 1;
+    this.$volumeValue = 1.0;
     this.$bufVolumeValue = this.$volumeValue;
 
 
@@ -45,23 +45,15 @@ var HBPlayer = function(selector, options) {
     this.spriteRatio = 0.24; // Number of steps / 100
 
     this.player = $(selector);
-    //this.media = $.extend({}, media);
+   
+    this.dragging = false; 
 
-
-    /*this.cssTransforms = true;//Modernizr.csstransforms;
-    this.audio = {};*/
-    this.dragging = false; // Indicates if the progressbar is being 'dragged'.
-
-    this.eventNamespace = ".CirclePlayer"; // So the events can easily be removed in destroy.
+    this.eventNamespace = ".CirclePlayer"; 
 
 
     this.$volumeMD = false;
     this.$progressMD = false;
 
-    /*this.jq = {};
-    $.each(cssSelector, function(entity, cssSel) {
-        self.jq[entity] = $(self.options.cssSelectorAncestor + " " + cssSel);
-    });*/
 
     this._initSolution();
     this._initPlayer();
@@ -72,7 +64,6 @@ HBPlayer.prototype = {
     _initPlayer: function() {
         var self = this;
         this.player.jPlayer(this.options);
-        console.log(this.player.data().jPlayer);
         this.player.bind($.jPlayer.event.ready + this.eventNamespace, function(event) {
             if(event.jPlayer.html.used && event.jPlayer.html.audio.available) {
                 self.audio = $(this).data("jPlayer").htmlElement.audio;
@@ -82,17 +73,12 @@ HBPlayer.prototype = {
         this.player.bind($.jPlayer.event.canplay  + this.eventNamespace, function(event) {
             $(self.cssSelector.tphTotalTime).text($.jPlayer.convertTime(self.player.data().jPlayer.status.duration));
         });
-        /*this.player.bind($.jPlayer.event.play + this.eventNamespace, function(event) {
-            $(this).jPlayer("pauseOthers");
-        });*/
-
-        // This event fired as play time increments
+        
         this.player.bind($.jPlayer.event.timeupdate + this.eventNamespace, function(event) {
             self._timeupdateHorizontal(event.jPlayer.status.currentTime, event.jPlayer.status.duration);
             self._timeupdateCircle(event.jPlayer.status.currentPercentAbsolute);
         });
 
-        // This event fired as buffered time increments
         this.player.bind($.jPlayer.event.progress + this.eventNamespace, function(event) {
             var percent = 0;
             if((typeof self.audio.buffered === "object") && (self.audio.buffered.length > 0)) {
@@ -194,7 +180,9 @@ HBPlayer.prototype = {
             if(self.$volumeMD) {
                 var $width = $(this).width();
                 var $step = parseInt($width / self.options.volumeSliderStatements);
-                var $offset = (parseInt(e.offsetX / $step) * self.options.volumeSpriteHeight);
+				var eOff = (e.offsetX || e.clientX - $(e.target).offset().left);
+				
+                var $offset = (parseInt(eOff / $step) * self.options.volumeSpriteHeight);
                 self.$volumeSpriteOffset = $offset;
                 if($offset >= self.options.volumeSliderStatements * self.options.volumeSpriteHeight) return;
                 $(this).css({'background-position': '0 -' + $offset  + 'px'});
@@ -203,7 +191,8 @@ HBPlayer.prototype = {
         }).bind('click', function(e) {
             var $width = $(this).width();
             var $step = parseInt($width / self.options.volumeSliderStatements);
-            var $offset = (parseInt(e.offsetX / $step) * self.options.volumeSpriteHeight);
+			var eOff = (e.offsetX || e.clientX - $(e.target).offset().left);
+            var $offset = (parseInt(eOff / $step) * self.options.volumeSpriteHeight);
             self.$volumeSpriteOffset = $offset;
             if($offset >= self.options.volumeSliderStatements * self.options.volumeSpriteHeight) return;
             $(this).css({'background-position': '0 -' + $offset  + 'px'});
@@ -224,7 +213,7 @@ HBPlayer.prototype = {
         }).bind('mousemove', function(e) {
             if(self.$progressMD && self.srcSet()) {
                 var $width = $(this).width();
-                var $pos = e.offsetX;
+                var $pos = (e.offsetX == undefined) ? e.originalEvent.layerX : e.offsetX;
                 var $percents = $pos * 100 / $width;
                 var time = self.player.data().jPlayer.status.duration * $percents / 100;
                 self.toTime(time);
@@ -345,12 +334,11 @@ HBPlayer.prototype = {
         this.player.jPlayer("destroy");
     },
     volume: function(vol) {
-        if(vol > 1) vol = 1;
-        if(vol < 0) vol = 0;
+        if(vol > 1) vol = 1.0;
+        if(vol < 0) vol = 0.0;
         this.player.jPlayer("volume", vol);
     },
     srcSet: function() {
-        //console.log(this.player.data().jPlayer.status.srcSet);
         return this.player.data().jPlayer.status.srcSet;
     },
     mute: function(mute) {
@@ -385,6 +373,7 @@ Helper.prototype = {
                 .replace('+name+', value.name)
                 .replace('+duration+', value.duration));
         });
+		 $('[data-toggle="tooltip"]').tooltip()
     },
     getSong: function(index) {
         var $song = this.$songs[index];
@@ -403,14 +392,10 @@ Helper.prototype = {
         return $song;
     },
     getPrevSong: function() {
-        console.log(this.$songIndex);
         this.$songIndex--;
-        console.log(typeof this.$songs[this.$songIndex]);
         if (typeof this.$songs[this.$songIndex] == 'undefined') {
             this.$songIndex = this.$songs.length - 1;
         }
-        console.log(this.$songs.length);
-        console.log(this.$songIndex);
         this.setActive(this.$songIndex);
         return this.getSong(this.$songIndex);
     },
@@ -446,11 +431,11 @@ $(document).ready(function() {
     var $songs = [
         {
             album: 'la',
-            author: 'metallica',
-            name: 'the unforgiven',
-            path: '../../../uploads/users/20141126_leonigor/03-guano_apes_-_when_the_ships_arrive-ysp.mp3',
+            author: 'Ray Band',
+            name: 'Крыла',
+            path: './uploads/ray_band_kryla.mp3',
             duration: '33:11',
-            mimeType: 'mp3'
+            mimeType: 'mp3' 
         },
         {
             album: 'lalalaal',
@@ -485,9 +470,8 @@ $(document).ready(function() {
         hbPlayer.setMedia(helper.getSong(index));
         hbPlayer.play();
     });
-    $('.top-player-wrapper').mouseenter(function() {
-        $('.top-player-dropdown').delay(2000).fadeToggle('fast');
-    }).mouseleave(function() {
-        $('.top-player-dropdown').hide();
-    });
+	
+    $('.top-player-wrapper').hover(function() {
+        $('.top-player-dropdown').stop(true, true).delay(1000).fadeToggle('fast');
+    })
 });
