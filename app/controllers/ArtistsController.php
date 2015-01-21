@@ -56,7 +56,7 @@ class ArtistsController extends Controller {
 		$artist = Artist::where('nickname', '=', $name)->first();
 		
 		$data = array(
-			'album'  => Album::where('artist_id', '=', $artist->id)->get(),
+			'album'  => $artist->album()->where('artist_id', '=', $artist->id)->get(),
 			'artist' => $artist
 		);
 		
@@ -66,13 +66,14 @@ class ArtistsController extends Controller {
 	public function action_album_view($artist, $album)
 	{
 		$artist = Artist::where('nickname', '=', $artist)->first();
-		$album = Album::where('artist_id', '=', $artist->id)->where('nickname', '=', $album)->first();
+		$album = $artist->album()->where('nickname', '=', $album)->first();
 		
 		if(empty($album)) return Redirect::to('artist/nickelback/albums');
 		
 		$data = array(
+			'artist' => $artist,
 			'album'  => $album,
-			'artist' => $artist
+			'audio' => $album->audio
 		);
 		
 		return View::make('site.artist_album_view', $data);

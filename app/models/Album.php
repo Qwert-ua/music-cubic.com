@@ -8,6 +8,11 @@ class Album extends Eloquent {
 	{
     	return $this->belongsTo('Artist');
   	}
+  	
+  	public function audio()
+	{
+    	return $this->hasMany('Audio');
+  	}
 	
 	public static function isValid($data)
     {

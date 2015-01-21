@@ -4,7 +4,7 @@
 		left: 0;
 		width: 100%;
 		height: 476px;
-		background: #ebebeb url('/uploads/artists/{{ array_get($artist, 'nickname') }}/cover.jpg');
+		background: #ebebeb url('/uploads/artists/{{ array_get($artist, 'nickname') }}/cover.jpg?{{ time() }}');
 		background-position: top center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -18,7 +18,7 @@
 		
 				<div class="avatar avatar-artist">
 					
-					<img class="img-rounded user-icon-images " src="/imagecache/user/artists/{{ array_get($artist, 'nickname') }}/{{ array_get($artist, 'icon') }}" alt="">
+					<img class="img-rounded user-icon-images " src="/imagecache/user/artists/{{ array_get($artist, 'nickname') }}/{{ array_get($artist, 'icon') }}?{{ time() }}" alt="">
 					
 					<div class="user-icon-panel text-center ">
 						<div class="btn-group">

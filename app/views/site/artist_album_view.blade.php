@@ -29,8 +29,16 @@
 				<h2>{{ $album->name }}</h2>
 				
 				<br /><br /><br />
+				
+				<ul>	
 						
-				List audio		
+				@foreach($audio as $val_audio)
+				
+					<li>{{ $val_audio->name }} <span class="text-muted">({{ $val_audio->file }})</span></li>
+				
+				@endforeach		
+				
+				</ul>
 						
 			</div>
 		</div>	
@@ -44,28 +52,28 @@
 			
 				{{ Form::open(array('url' => 'artist/uploadaudio/' . $album->id, 'files' => 'true')) }}
 				
-				<div class="modal-header  bg-primary">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
-					<span class="sr-only">Close</span></button>
-					<h4 class="modal-title">Новый аудио альбом</h4>
-				</div>
-				<div class="modal-body">
-					
-					<div class="form-group">
-						<label>Название трека</label>
-						{{ Form::text('name', null, array('class' => 'form-control')) }}
+					<div class="modal-header  bg-primary">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+						<span class="sr-only">Close</span></button>
+						<h4 class="modal-title">Новый аудио альбом</h4>
 					</div>
-					
-					<div class="form-group">
-						<label>Трек</label>
-						{{ Form::file('file') }}
+					<div class="modal-body">
+						
+						<div class="form-group">
+							<label>Название трека</label>
+							{{ Form::text('name', null, array('class' => 'form-control')) }}
+						</div>
+						
+						<div class="form-group">
+							<label>Трек</label>
+							{{ Form::file('file', ['id' => 'audio_file']) }}
+						</div>
+						
 					</div>
-					
-				</div>
-				<div class="modal-footer">
-	        		<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-					<button type="submit" class="btn btn-primary">Загрузить</button>
-				</div>
+					<div class="modal-footer">
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+						<button type="submit" class="btn btn-primary">Загрузить</button>
+					</div>
 				
 				{{ Form::close() }}
 				

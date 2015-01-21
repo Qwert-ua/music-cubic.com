@@ -8,11 +8,16 @@ class Audio extends Eloquent {
 	{
     	return $this->belongsTo('Artist', 'artist');
   	}
+  	
+  	public function album()
+	{
+    	return $this->belongsTo('Album');
+  	}
 	
 	public static function isValid($id, $data)
     {
 	    $validator = Validator::make($data, [
-		    'track' => 'required|max:32|unique:audio,track,' . $id,
+		    'name' => 'required|max:32|unique:audio,name,' . $id,
 		    'album' => 'max:32|unique:audio,album,' . $id
 	    ]);
 	        
@@ -42,30 +47,30 @@ class Audio extends Eloquent {
 				
 				$audio = new Audio;
 				
-				$artist_slug = Translit::slug(Artist::find(array_get($data, 'artist'))->name);
-				$album_slug = Translit::slug(array_get($data, 'album'));
-				$track_slug = Translit::slug(array_get($data, 'track'));
+				$artist_name = Translit::slug(Artist::find(array_get($data, 'artist'))->name);
+				$album_name = Translit::slug(array_get($data, 'album'));
+				$track_name = Translit::slug(array_get($data, 'name'));
 					
-				$dir = self::makeDirectory($artist_slug);
+				$dir = self::makeDirectory($artist_name);
 				
 				if(array_get($data, 'album'))
 				{
-					$dir = self::makeDirectory($artist_slug, array_get($data, 'release'), $album_slug);
-					$cover = self::upload_cover($album_slug, $dir);
+					$dir = self::makeDirectory($artist_name, array_get($data, 'release'), $album_name);
+					$cover = self::upload_cover($album_name, $dir);
 				}
 				else
 				{
-					$cover = self::upload_cover($track_slug, $dir);
+					$cover = self::upload_cover($track_name, $dir);
 				}
 			}
 			
 			$audio->artist = array_get($data, 'artist');
-			$audio->track = array_get($data, 'track');
+			$audio->name = array_get($data, 'name');
 			$audio->album = array_get($data, 'album');
 			$audio->release = array_get($data, 'release');
 			$audio->dir = $dir;
 			$audio->cover = $cover;
-			$audio->file = self::upload_file($track_slug, $dir);
+			$audio->file = self::upload_file($track_name, $dir);
 			$audio->save();
 			
 			Session::flash('alert', array('green', 'Ok'));
@@ -171,7 +176,7 @@ class Audio extends Eloquent {
 		$album = Album::find($album_id);
 		
 		$validator = Validator::make($data, [
-		    'name' => 'required|max:32|unique:audio,track,' . $id
+		    'name' => 'required|max:32|unique:audio,name,' . $id
 	    ]);
 	        
         if($validator->passes()) 
@@ -180,7 +185,7 @@ class Audio extends Eloquent {
 			$input = array('file' => Input::file('file'));
 			
 			$validation = Validator::make($input, array(
-				'file' => 'max:15360|mimes:bin,mp4a,mpga'
+				'file' => 'max:25600|mimes:bin,mp4a,mpga'
 			));
 			
 			if($validation->passes()) 
@@ -189,6 +194,13 @@ class Audio extends Eloquent {
 				$file_name = Translit::slug(Input::get('name')) . '.mp3';
 				
 				$data->move($dir, $file_name);
+				
+				$audio = new Audio;
+				$audio->artist_id = $album->artist->id;
+				$audio->album_id = $album_id;
+				$audio->name = Input::get('name');
+				$audio->file = $file_name;
+				$audio->save();
 			
 				return $file_name;
 			}

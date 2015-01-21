@@ -93,6 +93,18 @@ Route::group(array('before' => 'auth.user'), function()
     Route::post('audio', array('before' => 'csrf', 'uses' => 'AudioController@action_upload'));
     Route::post('audio/create-playlist', array('before' => 'csrf', 'uses' => 'AudioController@action_createplaylist'));
     
+    Route::get('@{nickname}', function($nickname) {
+		
+		echo 'Artist: ' . $nickname;
+		
+	});
+	
+	Route::get('{nickname}', function($nickname) {
+		
+		echo 'User: ' . $nickname;
+		
+	});	
+    
 });
 
 

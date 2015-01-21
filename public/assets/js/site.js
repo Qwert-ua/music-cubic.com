@@ -127,7 +127,7 @@ $(document).ready(function(){
 		SelectCity();		
 	});
 
-	$('.geobasecountry').autocomplete({
+	$('.geobasecountry').autocomplete({ 
 	    serviceUrl: '/ajax/geocountry',
 	    type: 'POST',
 	    onSelect: function (suggestions) {
@@ -136,9 +136,27 @@ $(document).ready(function(){
 	    }
 	});	
 	
+	$('#audio_file').on('change', function(){
+		
+		$('#UploadAudio').find('input[name=name]').val( baseName($(this).val()) );
+		
+	});
+	
+	
 });
 
-//////////////////////
+////////////////////// Function
+
+
+function baseName(str)
+{
+	var base = new String(str).substring(str.lastIndexOf('/') + 1).replace(/\\/g, '/').replace(/.*\//, ''); 
+	
+	if(base.lastIndexOf(".") != -1)       
+		base = base.substring(0, base.lastIndexOf("."));
+	
+	return base;
+}
 
 function geobasecity(city_id) {
 	

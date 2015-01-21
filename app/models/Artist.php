@@ -4,7 +4,12 @@ class Artist extends Eloquent {
 
 	protected $table = 'artists';
 	
-	public function audio()
+	public function album()
+	{
+    	return $this->hasMany('Album');
+  	}
+  	
+  	public function audio()
 	{
     	return $this->hasMany('Audio');
   	}
@@ -162,7 +167,7 @@ class Artist extends Eloquent {
 		
 		if($validation->passes() && $user->id) 
 		{
-			$dir = 'uploads/artists/' . $artist->login;
+			$dir = 'uploads/artists/' . $artist->nickname;
 
 			$file_name = 'cover.' . $data->getClientOriginalExtension();
 			$data->move($dir, $file_name);
