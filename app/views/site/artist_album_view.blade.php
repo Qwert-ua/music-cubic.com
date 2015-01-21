@@ -17,27 +17,20 @@
 				</blockquote>
 				
 				<div class="btn-group">
-					<a href="/artist/{{ $artist->nickname }}" class="btn btn-default">На страничку исполнителя</a>
-					<button type="button" href="#" class="btn btn-default" data-toggle="modal" data-target="#CreateAlbum">Создать аудио альбом</button>
+					<a href="/artist/{{ $artist->nickname }}/albums" class="btn btn-default">Список аудио альбомов</a>
+					<button type="button" href="#" class="btn btn-default" data-toggle="modal" data-target="#UploadAudio">Загрузить аудио</button>
 				</div>
 				
 				<br />
 				<br />
 				
-				<div class="row">
-					
-					@foreach($album as $val_album)
 				
-						<div class="col-xs-3 text-center">
-							<a href="/artist/nickelback/album/{{ $val_album->nickname }}">
-								<img src="/uploads/artists/{{ $artist->nickname }}/audio/{{ $val_album->nickname }}/{{ $val_album->cover }}" style="width: 100%"  class="img-circle" />
-								{{ $val_album->name }}
-							</a>
-						</div>
-					
-					@endforeach
-					
-				</div>
+				<img src="/uploads/artists/{{ $artist->nickname }}/audio/{{ $album->nickname }}/{{ $album->cover }}" style="width: 100px; margin-right: 20px"  class="img-circle pull-left" />
+				<h2>{{ $album->name }}</h2>
+				
+				<br /><br /><br />
+						
+				List audio		
 						
 			</div>
 		</div>	
@@ -45,11 +38,11 @@
 	
 	<!-- Modal Content -->
 
-	<div class="modal fade" id="CreateAlbum">
+	<div class="modal fade" id="UploadAudio">
 		<div class="modal-dialog">
 			<div class="modal-content">
 			
-				{{ Form::open(array('url' => 'artist/createaudioalbum/' . $artist->id, 'files' => 'true')) }}
+				{{ Form::open(array('url' => 'artist/uploadaudio/' . $album->id, 'files' => 'true')) }}
 				
 				<div class="modal-header  bg-primary">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
@@ -59,24 +52,19 @@
 				<div class="modal-body">
 					
 					<div class="form-group">
-						<label>Название</label>
+						<label>Название трека</label>
 						{{ Form::text('name', null, array('class' => 'form-control')) }}
 					</div>
 					
 					<div class="form-group">
-						<label>Релиз</label>
-						{{ Form::selectRange('release', date('Y'), 1900, null, array('class' => 'form-control')) }}
-					</div>
-					
-					<div class="form-group">
-						<label>Ковер</label>
-						{{ Form::file('cover') }}
+						<label>Трек</label>
+						{{ Form::file('file') }}
 					</div>
 					
 				</div>
 				<div class="modal-footer">
 	        		<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-					<button type="submit" class="btn btn-primary">Создать</button>
+					<button type="submit" class="btn btn-primary">Загрузить</button>
 				</div>
 				
 				{{ Form::close() }}

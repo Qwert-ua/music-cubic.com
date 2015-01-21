@@ -1,10 +1,10 @@
-@if(array_get($artist, 'login'))
+@if(array_get($artist, 'nickname'))
 	<div style="position: absolute;
 		top: 57px;
 		left: 0;
 		width: 100%;
 		height: 476px;
-		background: #ebebeb url('/uploads/artists/{{ array_get($artist, 'login') }}/cover.jpg');
+		background: #ebebeb url('/uploads/artists/{{ array_get($artist, 'nickname') }}/cover.jpg');
 		background-position: top center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -18,11 +18,11 @@
 		
 				<div class="avatar avatar-artist">
 					
-					<img class="img-rounded user-icon-images " src="/imagecache/user/artists/{{ array_get($artist, 'login') }}/{{ array_get($artist, 'icon') }}" alt="">
+					<img class="img-rounded user-icon-images " src="/imagecache/user/artists/{{ array_get($artist, 'nickname') }}/{{ array_get($artist, 'icon') }}" alt="">
 					
 					<div class="user-icon-panel text-center ">
 						<div class="btn-group">
-							<a href="/artist/{{ array_get($artist, 'login') }}/edit" class="btn btn-sm btn-link btn-user-iconimages"><i class="fa fa-pencil-square-o"></i> {{ trans('trans.btn.edit') }}</a>	
+							<a href="/artist/{{ array_get($artist, 'nickname') }}/edit" class="btn btn-sm btn-link btn-user-iconimages"><i class="fa fa-pencil-square-o"></i> {{ trans('trans.btn.edit') }}</a>	
 							<button type="button" class="btn btn-sm btn-link btn-user-iconimages" data-toggle="modal" data-target="#UploadIcon"><i class="fa fa-download"></i> {{ trans('trans.btn.upload_icon') }}</button>
 						</div>
 					</div>

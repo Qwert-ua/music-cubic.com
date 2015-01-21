@@ -5,7 +5,7 @@ class ArtistsController extends Controller {
 	public function action_index($name)
 	{
 		$data = array(
-			'artist' => Artist::where('login', '=', $name)->first()
+			'artist' => Artist::where('nickname', '=', $name)->first()
 		);
 		
 		return View::make('site.artist', $data);
@@ -24,7 +24,7 @@ class ArtistsController extends Controller {
 	{	
 		$data = array(
 			'edit' => true,
-			'artist' => !empty($name) ? Artist::where('login', '=', $name)->first() : Session::get('post'),
+			'artist' => !empty($name) ? Artist::where('nickname', '=', $name)->first() : Session::get('post'),
 			'genre' => Genre::lists('name', 'id'),
 			'country' => Country::orderBy('name')->get()
 		);
@@ -36,7 +36,7 @@ class ArtistsController extends Controller {
 	{
 		$artist = Artist::save_data($id);
 		
-		return Redirect::back(); ///Redirect::to('artist/' . $artist->login);
+		return Redirect::back(); ///Redirect::to('artist/' . $artist->nickname);
 	}
 	
 	public function action_upload_icon($id)
@@ -53,16 +53,49 @@ class ArtistsController extends Controller {
 	
 	public function action_albums($name)
 	{
+		$artist = Artist::where('nickname', '=', $name)->first();
+		
 		$data = array(
-			'artist' => !empty($name) ? Artist::where('login', '=', $name)->first() : Session::get('post')
+			'album'  => Album::where('artist_id', '=', $artist->id)->get(),
+			'artist' => $artist
 		);
 		
 		return View::make('site.artist_albums', $data);
 	}
 	
-	public function action_createaudioalbum()
+	public function action_album_view($artist, $album)
 	{
-		Dump::p( Input::all() );
+		$artist = Artist::where('nickname', '=', $artist)->first();
+		$album = Album::where('artist_id', '=', $artist->id)->where('nickname', '=', $album)->first();
+		
+		if(empty($album)) return Redirect::to('artist/nickelback/albums');
+		
+		$data = array(
+			'album'  => $album,
+			'artist' => $artist
+		);
+		
+		return View::make('site.artist_album_view', $data);
+	}
+	
+	public function action_createaudioalbum($artist)
+	{
+		$album = Album::save_data($artist, 0);
+		
+		if(!empty($album))
+		{
+			return Redirect::to('artist/' . $album->artist->nickname . '/album/' . $album->nickname);		
+		}
+		else
+		{
+			return Redirect::back();
+		}
+	}
+	
+	public function action_uploadaudio($album_id, $id = 0)
+	{
+		Audio::upload_audio($album_id, $id);
+		return Redirect::back();
 	}
 	
 	// =========================== Admin =========================== //

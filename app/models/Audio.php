@@ -42,9 +42,9 @@ class Audio extends Eloquent {
 				
 				$audio = new Audio;
 				
-				$artist_slug = strtoupper(Translit::slug(Artist::find(array_get($data, 'artist'))->name));
-				$album_slug = strtoupper(Translit::slug(array_get($data, 'album')));
-				$track_slug = strtoupper(Translit::slug(array_get($data, 'track')));
+				$artist_slug = Translit::slug(Artist::find(array_get($data, 'artist'))->name);
+				$album_slug = Translit::slug(array_get($data, 'album'));
+				$track_slug = Translit::slug(array_get($data, 'track'));
 					
 				$dir = self::makeDirectory($artist_slug);
 				
@@ -149,7 +149,7 @@ class Audio extends Eloquent {
 			'audio' => 'max:15360|mimes:bin,mp4a,mpga'
 		));
 		
-		if($validation->passes()) 
+		if($validation->passes() && $data->getClientOriginalExtension() == 'mp3') 
 		{
 			$dir = './uploads/music/' . $dir . '/';
 			$file_name = $name . '.mp3';
@@ -164,4 +164,45 @@ class Audio extends Eloquent {
 			return false;
 		}
 	}
+	
+	public static function upload_audio($album_id, $id) 
+	{
+		$data = Input::all();
+		$album = Album::find($album_id);
+		
+		$validator = Validator::make($data, [
+		    'name' => 'required|max:32|unique:audio,track,' . $id
+	    ]);
+	        
+        if($validator->passes()) 
+		{
+			$data = Input::file('file');
+			$input = array('file' => Input::file('file'));
+			
+			$validation = Validator::make($input, array(
+				'file' => 'max:15360|mimes:bin,mp4a,mpga'
+			));
+			
+			if($validation->passes()) 
+			{
+				$dir = './uploads/artists/' . $album->artist->nickname  . '/audio/' . $album->nickname . '/';
+				$file_name = Translit::slug(Input::get('name')) . '.mp3';
+				
+				$data->move($dir, $file_name);
+			
+				return $file_name;
+			}
+			else
+			{
+				Session::flash('alert_valid', $validation->messages()->toArray());
+				return false;
+			}
+		}
+		else
+		{
+			Session::flash('alert_valid', $validator->messages()->toArray());
+			return false;
+		}
+	}
+	
 }

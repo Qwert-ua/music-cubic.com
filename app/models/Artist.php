@@ -47,7 +47,7 @@ class Artist extends Eloquent {
 			{
 				$artist = new Artist;
 				
-				$login = Translit::slug(trim(array_get($data, 'name')));
+				$login = Translit::slug(array_get($data, 'name'));
 				self::makeDirectory($login);
 				$artist->login = $login;
 			}

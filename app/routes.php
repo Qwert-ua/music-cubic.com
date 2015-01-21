@@ -85,6 +85,8 @@ Route::group(array('before' => 'auth.user'), function()
     Route::post('artist/uploadcover/{id}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_upload_cover'));
 	Route::get('artist/{artist}/albums', 'ArtistsController@action_albums');
 	Route::post('artist/createaudioalbum/{id}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_createaudioalbum'));
+	Route::get('artist/{artist}/album/{album}', 'ArtistsController@action_album_view');
+	Route::post('artist/uploadaudio/{album_id}/{id?}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_uploadaudio'));
 	
     Route::get('{username}/audio', 'AudioController@action_index');
     Route::get('audio/add', 'AudioController@action_form');

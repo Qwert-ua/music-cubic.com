@@ -103,7 +103,7 @@
 	    		
 				<div class="btn-group btn-group-justified">
 					<div class="btn-group">
-						<a href="/artist/{{array_get($artist, 'login')}}" class="btn btn-default">{{trans('trans.btn.back')}}</a>
+						<a href="/artist/{{array_get($artist, 'nickname')}}" class="btn btn-default">{{trans('trans.btn.back')}}</a>
 					</div>
 					<div class="btn-group">
 						<button type="submit" class="btn btn-success btn-default">{{trans('trans.btn.save')}}</button>
