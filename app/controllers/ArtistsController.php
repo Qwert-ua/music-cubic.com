@@ -5,7 +5,7 @@ class ArtistsController extends Controller {
 	public function action_index($name)
 	{
 		$data = array(
-			'artist' => Artist::find(Artist::get_id($name))
+			'artist' => Artist::where('login', '=', $name)->first()
 		);
 		
 		return View::make('site.artist', $data);
@@ -20,13 +20,12 @@ class ArtistsController extends Controller {
 		return View::make('site.artist_list', $data);
 	}
 	
-	public function action_form()
-	{
-		$genre = Config::get('myconfig.genre');
-		natsort($genre);
-		
+	public function action_form($name = null)
+	{	
 		$data = array(
-			'genre' => $genre,
+			'edit' => true,
+			'artist' => !empty($name) ? Artist::where('login', '=', $name)->first() : Session::get('post'),
+			'genre' => Genre::lists('name', 'id'),
 			'country' => Country::orderBy('name')->get()
 		);
 		
@@ -35,14 +34,41 @@ class ArtistsController extends Controller {
 	
 	public function action_save($id = 0)
 	{
-		Artist::save_data($id);
+		$artist = Artist::save_data($id);
+		
+		return Redirect::back(); ///Redirect::to('artist/' . $artist->login);
+	}
+	
+	public function action_upload_icon($id)
+	{
+		Artist::upload_icon($id);
 		return Redirect::back();
+	}
+	
+	public function action_upload_cover($id)
+	{
+		Artist::upload_cover($id);
+		return Redirect::back();
+	}
+	
+	public function action_albums($name)
+	{
+		$data = array(
+			'artist' => !empty($name) ? Artist::where('login', '=', $name)->first() : Session::get('post')
+		);
+		
+		return View::make('site.artist_albums', $data);
+	}
+	
+	public function action_createaudioalbum()
+	{
+		Dump::p( Input::all() );
 	}
 	
 	// =========================== Admin =========================== //
 	
 	public function action_admin_index()
-	{
+	{ 
 		$data = array(
 			'artists' => Artist::all()
 		);

@@ -240,6 +240,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$dir = 'uploads/users/' . $user->dir;
 
 			$img = Image::make($_FILES['image']['tmp_name']);
+			$img->fit(260, 390, function ($constraint) {
+				$constraint->upsize();
+			});
 			$img->save($dir . '/icon.' . $data->getClientOriginalExtension());
 		
 			$user = User::find($user->id);

@@ -46,6 +46,7 @@
 		<script src="/assets/ajax-file-upload-form/js/jquery.fileupload.js"></script>
 		<script src="/assets/ajax-file-upload-form/js/script.js"></script>
 		<script src="/assets/lightbox/js/lightbox.min.js"></script>
+		<script src="/assets/jQuery-Autocomplete/jquery.autocomplete.min.js"></script>
 		<script src="/assets/js/site.js"></script>
 		
 		<script src="/assets/js/jquery.grab.js"></script>

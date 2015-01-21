@@ -62,4 +62,44 @@ class AjaxController extends Controller {
 		}
 	}
 	
+	public function action_geo_country()
+	{
+		$data = array();
+		
+		$data['query'] = Input::get('query');
+		$arr_query = array();
+		
+		foreach(Country::where('name', 'LIKE', '%' . Input::get('query') . '%')->limit(10)->get() as $val)
+		{
+			$arr_query[] = array(
+				'value' => $val->name,
+				'data' => $val->id
+			);
+		}
+		
+		$data['suggestions'] = $arr_query;
+		
+		return json_encode($data);
+	}
+	
+	public function action_geo_city()
+	{
+		$data = array();
+		
+		$data['query'] = Input::get('query');
+		$arr_query = array();
+		
+		foreach(City::where('country_id', '=', Input::get('country'))->where('name', 'LIKE', '%' . Input::get('query') . '%')->limit(10)->get() as $val)
+		{
+			$arr_query[] = array(
+				'value' => $val->name,
+				'data' => $val->id
+			);
+		}
+		
+		$data['suggestions'] = $arr_query;
+		
+		return json_encode($data);
+	}
+	
 }

@@ -11,18 +11,14 @@ class Artist extends Eloquent {
 	
 	public static function isValid($id, $data)
     {
-	    $rule = array();
-	     
-	    $rule['name'] = 'required|max:128|unique:artists,name,' . $id;
-	    $rule['group_created'] = 'required';
-	    $rule['genre'] = 'required';
-	    $rule['country'] = 'required';
-	    $rule['city'] = 'required';
-	    //$rule['group_composition'] = 'required';
-	    //$rule['label'] = 'required|min:3|max:64';
-	    //$rule['place_base'] = 'required';
-	    //$rule['place_business'] = 'required';
-	    //$rule['links'] = 'required';
+	    $rule = array(
+	    	'name' => 'required|max:128|unique:artists,name,' . $id,
+			'group_created' => 'required',
+			'genre' => 'required',
+			'country' => 'required',
+			'city' => 'required',
+			'description' => 'required',
+		);
 	    
 	    $validator = Validator::make($data, $rule);
 	        
@@ -57,6 +53,7 @@ class Artist extends Eloquent {
 			}
 			
 			$artist->name = array_get($data, 'name');
+			$artist->description = array_get($data, 'description');
 			$artist->admins = serialize(array_filter(array_get($data, 'admins', array($user->id)), 'strlen'));
 			$artist->group_created = array_get($data, 'group_created');
 			$artist->group_closed = array_get($data, 'group_closed');
@@ -119,13 +116,64 @@ class Artist extends Eloquent {
 		}
 	}
 	
-	public static function get_name($id)
+	public static function upload_icon($id) 
 	{
-		return Artist::find($id)->name;
+		$artist = self::find($id);
+		
+		$data = Input::file('image');
+		$input = array('image' => Input::file('image'));
+		$user = Auth::user();
+		
+		$validation = Validator::make($input, array(
+			'image' => 'required|max:5000|mimes:jpeg,gif,png,bmp'
+		));
+		
+		if($validation->passes() && $user->id) 
+		{
+			$dir = 'uploads/artists/' . $artist->login;
+
+			$img = Image::make($_FILES['image']['tmp_name']);
+			$img->fit(260, 390, function ($constraint) {
+				$constraint->upsize();
+			});
+			$img->save($dir . '/icon.' . $data->getClientOriginalExtension());
+		
+			$artist->icon = 'icon.' . $data->getClientOriginalExtension();
+			$artist->save();
+		}
+		else
+		{
+			Session::flash('alert_valid', $validation->messages()->toArray());
+			return false;
+		}
 	}
 	
-	public static function get_id($name)
+	public static function upload_cover($id) 
 	{
-		return Artist::where('login', '=', $name)->first()->id;
+		$artist = self::find($id);
+		
+		$data = Input::file('image');
+		$input = array('image' => Input::file('image'));
+		$user = Auth::user();
+		
+		$validation = Validator::make($input, array(
+			'image' => 'required|max:5000|mimes:jpeg,gif,png,bmp'
+		));
+		
+		if($validation->passes() && $user->id) 
+		{
+			$dir = 'uploads/artists/' . $artist->login;
+
+			$file_name = 'cover.' . $data->getClientOriginalExtension();
+			$data->move($dir, $file_name);
+		
+			$artist->cover = $file_name;
+			$artist->save();
+		}
+		else
+		{
+			Session::flash('alert_valid', $validation->messages()->toArray());
+			return false;
+		}
 	}
 }

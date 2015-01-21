@@ -85,6 +85,12 @@ $(document).ready(function(){
     	$('.modal:visible').each(centerModal);
 	});
 	
+	$('#CreateAlbum').on('hidden.bs.modal', function () {
+    	$('#CreateAlbum').find('input[name=name]').val('');
+    	$('#CreateAlbum').find('select[name=release]').val('selectedIndex', '-1').selectpicker('refresh');
+    	$('#CreateAlbum').find('input[name=cover]').val('');
+  	});
+	
 	$(".sort_images").sortable({ 
 		timeout: 500,
 	    placeholder: 'col-xs-2 col-md-3 placeholder',
@@ -120,7 +126,29 @@ $(document).ready(function(){
 		$('#city_id').val('0')
 		SelectCity();		
 	});
+
+	$('.geobasecountry').autocomplete({
+	    serviceUrl: '/ajax/geocountry',
+	    type: 'POST',
+	    onSelect: function (suggestions) {
+		   $('.geobasecity').prop("disabled", false); 
+		   geobasecity(suggestions.data);
+	    }
+	});	
+	
 });
+
+//////////////////////
+
+function geobasecity(city_id) {
+	
+	$('.geobasecity').autocomplete({
+	    serviceUrl: '/ajax/geocity',
+	    params: { country : city_id },
+	    type: 'POST'
+	});
+	
+}
 
 function SelectCity() {
 	

@@ -46,7 +46,8 @@ return array(
 		'createuser' => 'Створити виконавця',
 		'add_track' => 'Додати аудіо трек',
 		'add' => 'Додати',
-		'new_playlist' => 'Створити плейлист'
+		'new_playlist' => 'Створити плейлист',
+		'back' => 'Назад'
 	),
 	
 	'menu' => array(

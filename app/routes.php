@@ -21,6 +21,8 @@ Route::group(array('before' => 'ajax', 'prefix' => 'ajax'), function()
 	Route::post('getgallery', 'AjaxController@action_getgallery');
 	Route::post('imgdel', 'AjaxController@action_imgdel');
 	Route::post('images_sort', 'AjaxController@action_imagessort');
+	Route::post('geocountry', 'AjaxController@action_geo_country');
+	Route::post('geocity', 'AjaxController@action_geo_city');
 });
 
 Route::get('admin/auth', 'AuthController@action_admin_index');
@@ -77,14 +79,17 @@ Route::group(array('before' => 'auth.user'), function()
     Route::get('artist', 'ArtistsController@action_list');
     Route::get('artist/new', 'ArtistsController@action_form');
     Route::post('artist/save/{id?}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_save'));
+    Route::get('artist/{artist}/edit', 'ArtistsController@action_form');
     Route::get('artist/{artist}', 'ArtistsController@action_index');
-    
+    Route::post('artist/uploadicon/{id}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_upload_icon'));
+    Route::post('artist/uploadcover/{id}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_upload_cover'));
+	Route::get('artist/{artist}/albums', 'ArtistsController@action_albums');
+	Route::post('artist/createaudioalbum/{id}', array('before' => 'csrf', 'uses' => 'ArtistsController@action_createaudioalbum'));
+	
     Route::get('{username}/audio', 'AudioController@action_index');
     Route::get('audio/add', 'AudioController@action_form');
     Route::post('audio', array('before' => 'csrf', 'uses' => 'AudioController@action_upload'));
     Route::post('audio/create-playlist', array('before' => 'csrf', 'uses' => 'AudioController@action_createplaylist'));
-	
-    
     
 });
 
